@@ -1,0 +1,188 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ========================
+// КОНТАКТЫ И ПОДПИСЧИКИ
+// ========================
+
+model EmailContact {
+  id             String              @id @default(cuid())
+  email          String              @unique
+  name           String?
+  telegramHandle String?
+  source         ContactSource       @default(QUIZ)
+  consentGiven   Boolean             @default(false)
+  consentDate    DateTime?
+  unsubscribed   Boolean             @default(false)
+  unsubscribedAt DateTime?
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  quizResults    QuizResult[]
+  emailSequences EmailSequenceStep[]
+}
+
+enum ContactSource {
+  QUIZ
+  PARTNER_FORM
+  CONTACT_FORM
+  BLOG
+  MANUAL
+}
+
+// ========================
+// КВИЗ
+// ========================
+
+model QuizResult {
+  id              String        @id @default(cuid())
+  contactId       String?
+  contact         EmailContact? @relation(fields: [contactId], references: [id])
+  answers         Json
+  realAge         Int
+  bioAge          Int
+  delta           Int
+  pillarPriority  String
+  recommendations Json
+  riskLevel       String
+  resultToken     String        @unique
+  tokenExpiresAt  DateTime
+  createdAt       DateTime      @default(now())
+}
+
+// ========================
+// EMAIL DRIP-СЕРИЯ
+// ========================
+
+model EmailSequenceStep {
+  id           String       @id @default(cuid())
+  contactId    String
+  contact      EmailContact @relation(fields: [contactId], references: [id])
+  sequenceName String
+  stepNumber   Int
+  scheduledAt  DateTime
+  sentAt       DateTime?
+  openedAt     DateTime?
+  clickedAt    DateTime?
+  status       EmailStatus  @default(SCHEDULED)
+  createdAt    DateTime     @default(now())
+
+  @@unique([contactId, sequenceName, stepNumber])
+}
+
+enum EmailStatus {
+  SCHEDULED
+  SENT
+  OPENED
+  CLICKED
+  BOUNCED
+  FAILED
+}
+
+// ========================
+// ПАРТНЁРСТВО
+// ========================
+
+model PartnerApplication {
+  id           String        @id @default(cuid())
+  name         String
+  email        String
+  phone        String?
+  telegram     String?
+  about        String?
+  status       PartnerStatus @default(NEW)
+  source       String?
+  consentGiven Boolean       @default(false)
+  consentDate  DateTime?
+  assignedTo   String?
+  notes        String?
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+enum PartnerStatus {
+  NEW
+  CONTACTED
+  IN_PROGRESS
+  PARTNER
+  REJECTED
+}
+
+// ========================
+// КОНТАКТНЫЕ СООБЩЕНИЯ
+// ========================
+
+model ContactMessage {
+  id           String    @id @default(cuid())
+  name         String
+  email        String
+  message      String
+  read         Boolean   @default(false)
+  repliedAt    DateTime?
+  consentGiven Boolean   @default(false)
+  createdAt    DateTime  @default(now())
+}
+
+// ========================
+// БЛОГ
+// ========================
+
+model BlogCategory {
+  id    String     @id @default(cuid())
+  name  String     @unique
+  slug  String     @unique
+  posts BlogPost[]
+}
+
+model BlogPost {
+  id             String        @id @default(cuid())
+  title          String
+  slug           String        @unique
+  excerpt        String
+  content        String
+  categoryId     String
+  category       BlogCategory  @relation(fields: [categoryId], references: [id])
+  coverImage     String?
+  published      Boolean       @default(false)
+  publishedAt    DateTime?
+  seoTitle       String?
+  seoDescription String?
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+}
+
+// ========================
+// СОГЛАСИЕ (GDPR LOG)
+// ========================
+
+model ConsentLog {
+  id        String   @id @default(cuid())
+  email     String
+  action    String
+  source    String
+  ipAddress String?
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
+// ========================
+// АДМИНИСТРИРОВАНИЕ
+// ========================
+
+model AdminUser {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String
+  role      AdminRole @default(CONSULTANT)
+  createdAt DateTime  @default(now())
+}
+
+enum AdminRole {
+  ADMIN
+  CONSULTANT
+}
