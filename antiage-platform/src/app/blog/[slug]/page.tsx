@@ -23,12 +23,37 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   };
 }
 
+/** Парсит текст с markdown-ссылками [текст](url) в React-элементы */
+function renderTextWithLinks(text: string) {
+  const parts = text.split(/(\[[^\]]+\]\([^)]+\))/g);
+  return parts.map((part, i) => {
+    const match = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+    if (match) {
+      return (
+        <a
+          key={i}
+          href={match[2]}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 text-teal-mid underline decoration-teal-mid/30 underline-offset-2 hover:decoration-teal-mid transition-colors"
+        >
+          {match[1]}
+          <svg className="w-3.5 h-3.5 shrink-0" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M5 3h8v8M13 3L5 11" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </a>
+      );
+    }
+    return <span key={i}>{part}</span>;
+  });
+}
+
 function renderSection(section: BlogSection, index: number) {
   switch (section.type) {
     case "paragraph":
       return (
         <p key={index} className="text-text-muted text-lg leading-relaxed">
-          {section.text}
+          {section.text ? renderTextWithLinks(section.text) : null}
         </p>
       );
     case "heading":
@@ -52,7 +77,7 @@ function renderSection(section: BlogSection, index: number) {
           {section.items?.map((item, i) => (
             <li key={i} className="flex items-start gap-3 text-text-muted text-lg leading-relaxed">
               <span className="mt-2 shrink-0 w-2 h-2 rounded-full bg-teal-mid" />
-              {item}
+              <span>{renderTextWithLinks(item)}</span>
             </li>
           ))}
         </ul>
@@ -62,7 +87,7 @@ function renderSection(section: BlogSection, index: number) {
         tip: "bg-teal-bg border-teal-mid/30 text-teal",
         warning: "bg-brand-bg border-brand/30 text-brand-dark",
         story: "bg-brand-cream border-brand-soft text-brand-dark",
-        science: "bg-indigo-50 border-indigo-200 text-indigo-900",
+        science: "bg-teal-bg border-teal-mid/30 text-text",
       };
       const icons = { tip: "💡", warning: "⚠️", story: "📖", science: "🔬" };
       const variant = section.variant ?? "tip";
@@ -72,7 +97,7 @@ function renderSection(section: BlogSection, index: number) {
           className={`rounded-xl border px-5 py-4 my-6 ${styles[variant]}`}
         >
           <span className="mr-2">{icons[variant]}</span>
-          <span className="text-base leading-relaxed">{section.text}</span>
+          <span className="text-base leading-relaxed">{section.text ? renderTextWithLinks(section.text) : null}</span>
         </div>
       );
     }
