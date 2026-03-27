@@ -1,12 +1,9 @@
 import Link from "next/link";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
+import { BLOG_POSTS } from "@/content/blog-posts";
 
-const DEMO_POSTS = [
-  { title: "5 продуктов, которые старят вас на 10 лет", category: "Питание" },
-  { title: "Как победить бессонницу без таблеток", category: "Здоровье" },
-  { title: "Коллаген: пить или колоть?", category: "БАДы" },
-];
+const PREVIEW_POSTS = BLOG_POSTS.slice(0, 3);
 
 export function BlogPreview() {
   return (
@@ -19,19 +16,25 @@ export function BlogPreview() {
           />
         </AnimateOnScroll>
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {DEMO_POSTS.map((post, i) => (
-            <AnimateOnScroll key={post.title} delay={i * 0.12}>
-              <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-md transition-all group h-full">
-                <div className="aspect-16/10 bg-brand-soft/30" />
-                <div className="p-6">
-                  <span className="inline-block text-xs font-medium text-teal-mid bg-teal-bg px-3 py-1 rounded-full mb-3">
-                    {post.category}
-                  </span>
-                  <h3 className="text-lg group-hover:text-teal-mid transition-colors">
-                    {post.title}
-                  </h3>
+          {PREVIEW_POSTS.map((post, i) => (
+            <AnimateOnScroll key={post.slug} delay={i * 0.12}>
+              <Link href={`/blog/${post.slug}`} className="group block h-full">
+                <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:-translate-y-1 hover:shadow-md transition-all h-full flex flex-col">
+                  <div className="aspect-16/10 bg-brand-soft/30" />
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-3 mb-3">
+                      <span className="inline-block text-xs font-medium text-teal-mid bg-teal-bg px-3 py-1 rounded-full">
+                        {post.category}
+                      </span>
+                      <span className="text-xs text-text-muted">{post.readTime}</span>
+                    </div>
+                    <h3 className="text-lg mb-2 group-hover:text-teal-mid transition-colors">
+                      {post.title}
+                    </h3>
+                    <p className="text-text-muted text-sm flex-1">{post.excerpt}</p>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </AnimateOnScroll>
           ))}
         </div>
