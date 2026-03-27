@@ -62,8 +62,9 @@ function renderSection(section: BlogSection, index: number) {
         tip: "bg-teal-bg border-teal-mid/30 text-teal",
         warning: "bg-brand-bg border-brand/30 text-brand-dark",
         story: "bg-brand-cream border-brand-soft text-brand-dark",
+        science: "bg-indigo-50 border-indigo-200 text-indigo-900",
       };
-      const icons = { tip: "💡", warning: "⚠️", story: "📖" };
+      const icons = { tip: "💡", warning: "⚠️", story: "📖", science: "🔬" };
       const variant = section.variant ?? "tip";
       return (
         <div
@@ -140,6 +141,33 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="space-y-4">
           {post.content.map((section, i) => renderSection(section, i))}
         </div>
+
+        {/* Источники (PubMed) */}
+        {post.sources && post.sources.length > 0 && (
+          <div className="mt-12 pt-6 border-t border-brand-soft/30">
+            <h3 className="text-lg font-bold text-text mb-4">
+              Научные источники
+            </h3>
+            <ol className="space-y-3 list-decimal list-inside">
+              {post.sources.map((source, i) => (
+                <li key={i} className="text-sm text-text-muted leading-relaxed">
+                  {source.title} ({source.year}).{" "}
+                  <a
+                    href={source.doi}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-teal-mid underline hover:text-teal transition-colors break-all"
+                  >
+                    {source.doi}
+                  </a>
+                </li>
+              ))}
+            </ol>
+            <p className="text-xs text-text-muted/60 mt-4">
+              Источники получены из базы данных PubMed (National Library of Medicine).
+            </p>
+          </div>
+        )}
 
         {/* Шеринг */}
         <div className="mt-12 pt-6 border-t border-brand-soft/30">
