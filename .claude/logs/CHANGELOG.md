@@ -19,6 +19,21 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-012] API-сервис приёма форм на VPS — 2026-06-05
+- Что сделано: новый пакет `antiage-api/` (Express 5 + Zod + Prisma через @prisma/adapter-pg),
+  развёрнут на VPS под PM2 (online, pm2 save + startup), слушает только 127.0.0.1:3001.
+  Эндпоинты GET /healthz, POST /api/quiz|/contact|/partner; Zod-схемы 1:1 из src/actions;
+  запись в БД + ConsentLog (ip/userAgent). 4/4 проверки из «Цели» пройдены, тестовые строки удалены.
+- Файлы: `antiage-api/**` (src, prisma/schema.prisma-копия, ecosystem.config.js, package*.json,
+  tsconfig.json, .gitignore), `.claude/reports/REPORT_TASK-012_2026-06-05.md`,
+  `.claude/tasks/SPRINT.md` (TASK-012 → [x]). На сервере: /home/deploy/antiage-api, pm2-deploy.service.
+- Сборка (antiage-api tsc): PASS
+- Линт: N/A (ESLint в пакете не настраивался; tsc strict)
+- Проверка типов (tsc): PASS
+- Дельта размера: новый сервис antiage-api (express/zod/@prisma/client/@prisma/adapter-pg/pg/prisma/dotenv, точные версии)
+- Проблемы: Prisma 7 wasm-клиент требует driver adapter (добавлены @prisma/adapter-pg+pg);
+  пакет держит копию schema.prisma (миграции не запускает); фронтовые server actions не тронуты.
+
 ## [TASK-011] PostgreSQL на VPS + первая миграция Prisma — 2026-06-05
 - Что сделано: сервер перезагружен (снят reboot-required); установлен PostgreSQL 16.14 (active,
   только localhost); создана БД `antiage` + роль `antiage_app` (владелец, least privilege);

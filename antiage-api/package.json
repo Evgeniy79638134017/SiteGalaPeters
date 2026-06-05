@@ -1,0 +1,27 @@
+{
+  "name": "antiage-api",
+  "version": "0.1.0",
+  "private": true,
+  "description": "AntiAge — приём форм (квиз/контакты/партнёрство) на RU-VPS, запись ПДн в РФ-БД",
+  "main": "dist/server.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "7.5.0",
+    "@prisma/client": "7.5.0",
+    "dotenv": "17.3.1",
+    "express": "5.1.0",
+    "pg": "8.16.3",
+    "prisma": "7.5.0",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.3",
+    "@types/node": "22.18.12",
+    "@types/pg": "8.15.5",
+    "typescript": "5.9.3"
+  }
+}
