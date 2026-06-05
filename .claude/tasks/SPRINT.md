@@ -14,14 +14,16 @@
 - [x] TASK-010: Первичная настройка и защита RU-VPS (reg.ru, 89.108.76.118): SSH-ключи, deploy, отключение паролей, ufw, fail2ban. Промт: `.claude/prompts/PROMPT_010_server_bootstrap.md`. Отчёт: `.claude/reports/REPORT_TASK-010_2026-06-05.md`.
 - [x] TASK-011: PostgreSQL на VPS + первая миграция Prisma (включая перезагрузку сервера шагом 0). Промт: `.claude/prompts/PROMPT_011_postgres_migrate.md`. Отчёт: `.claude/reports/REPORT_TASK-011_2026-06-05.md`.
 - [x] TASK-012: API-сервис приёма форм на VPS (Node+PM2, только 127.0.0.1): /api/quiz, /api/contact, /api/partner + ConsentLog. Промт: `.claude/prompts/PROMPT_012_api_service.md`. Отчёт: `.claude/reports/REPORT_TASK-012_2026-06-05.md`.
+- [x] TASK-015: Nginx + TLS на gpeters.ru: / → Vercel, /api → локальный API; сквозной тест форм. Промт: `.claude/prompts/PROMPT_015_nginx_tls.md`. Отчёт: `.claude/reports/REPORT_TASK-015_2026-06-05.md`.
+- [ ] TASK-019: Переключить формы фронта на /api (same-origin) + домен gpeters.ru в metadata/env. (Промт будет после приёмки TASK-015.)
 - [ ] TASK-001: Починить lint-ошибку в `antiage-platform/src/components/shared/CountUp.tsx` (`react-hooks/set-state-in-effect`). Промт: `.claude/prompts/PROMPT_001_lint_countup.md`.
-- [ ] TASK-002: Добавить статьи `BLOG_POSTS` в `antiage-platform/src/app/sitemap.ts` (сейчас в sitemap только листинг /blog).
-- [ ] TASK-003: Добавить дисклеймеры — медицинский (футер + страницы программ/блога) и «не является лекарственным средством» на материалах с БАД (L5, L15, H4).
-- [ ] TASK-004: Мелочи кода (L2*, L4*): `z.email()` вместо `z.string().email()` в `src/actions/*`; единый валидатор email (убрать дубль regex в `EmailGate.tsx`).
+- [ ] TASK-002: Добавить статьи `BLOG_POSTS` в sitemap. Промт: `.claude/prompts/PROMPT_002_blog_sitemap.md`.
+- [ ] TASK-003: Дисклеймеры (медицинский + БАД). Промт: `.claude/prompts/PROMPT_003_disclaimers.md`.
+- [ ] TASK-004: Единый валидатор email (z.email, без дубля regex). Промт: `.claude/prompts/PROMPT_004_email_validation.md`.
 
 ### Открытые вопросы для Vision Holder
 
-- [ВОПРОС] Домен сайта не зарегистрирован. Нужен для TASK-015 (Nginx+TLS+переключение фронта): без домена нельзя выпустить TLS-сертификат и открыть API наружу. Решить: имя в зоне .ru, регистрация на reg.ru (аккаунт заказчика).
+- [ВОПРОС] Email-провайдер для TASK-014: по Сценарию B (152-ФЗ) — российский ESP (Unisender/Mailopost и т.п.); Resend (зарубежный) только с отдельным решением по трансграничной передаче. Выбрать провайдера.
 - Редактура контента под рекламу БАД (L6) и тексты дисклеймеров — нужен ли проход юриста до публикации (см. BACKLOG ВОПРОСЫ).
 
 ### Закрытые задачи
@@ -32,6 +34,8 @@
   миграция init применена (9 таблиц), migrate status = up to date. 4/4 проверки пройдены.
 - [x] TASK-012 (2026-06-05): API-сервис antiage-api (Express+Prisma) под PM2 на 127.0.0.1:3001,
   приём quiz/contact/partner + ConsentLog. 4/4 проверки пройдены, тестовые данные удалены.
+- [x] TASK-015 (2026-06-05): Nginx + TLS на gpeters.ru (/ → Vercel, /api → локальный API),
+  Let's Encrypt + авто-редирект, реальный IP в ConsentLog. 6/6 проверок, тестовая запись удалена.
 
 ---
 

@@ -25,8 +25,8 @@ function asJson(value: unknown): Prisma.InputJsonValue {
   return value as Prisma.InputJsonValue;
 }
 
-// GET /healthz — liveness-проба.
-app.get("/healthz", (_req: Request, res: Response) => {
+// GET /healthz — liveness-проба. Доступна и как /api/healthz (через Nginx /api/).
+app.get(["/healthz", "/api/healthz"], (_req: Request, res: Response) => {
   res.status(200).json({ status: "ok" });
 });
 

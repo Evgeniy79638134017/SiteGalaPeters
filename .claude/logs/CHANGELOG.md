@@ -19,6 +19,21 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-015] Nginx + TLS на gpeters.ru — 2026-06-05
+- Что сделано: Nginx reverse-proxy на VPS — `/` → Vercel (gala-antiage.vercel.app, подмена Host),
+  `/api/` → локальный antiage-api (127.0.0.1:3001). TLS Let's Encrypt на gpeters.ru+www (certbot
+  --nginx, 80→443, авто-продление). В antiage-api добавлен alias `/api/healthz`. Реальный IP
+  посетителя доходит до ConsentLog (X-Forwarded-For + trust proxy). 6/6 проверок, тестовая строка удалена.
+- Файлы: `antiage-api/src/server.ts` (healthz на ["/healthz","/api/healthz"]),
+  `.claude/reports/REPORT_TASK-015_2026-06-05.md`, `.claude/tasks/SPRINT.md` (TASK-015 → [x]).
+  На сервере (вне репо): /etc/nginx/sites-available/gpeters.ru, сертификаты Let's Encrypt.
+- Сборка (antiage-api tsc): PASS
+- Линт: N/A
+- Проверка типов (tsc): PASS
+- Дельта размера: без изменений зависимостей (правка 1 строки + nginx/certbot на сервере)
+- Проблемы: Vercel отдаёт 404 при Host=gpeters.ru → подмена Host на vercel-домен; dry-run с
+  --no-random-sleep-on-renew для быстрой проверки.
+
 ## [TASK-012] API-сервис приёма форм на VPS — 2026-06-05
 - Что сделано: новый пакет `antiage-api/` (Express 5 + Zod + Prisma через @prisma/adapter-pg),
   развёрнут на VPS под PM2 (online, pm2 save + startup), слушает только 127.0.0.1:3001.
