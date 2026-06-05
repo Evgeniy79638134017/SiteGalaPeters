@@ -12,6 +12,7 @@
 ### Задачи
 
 - [x] TASK-010: Первичная настройка и защита RU-VPS (reg.ru, 89.108.76.118): SSH-ключи, deploy, отключение паролей, ufw, fail2ban. Промт: `.claude/prompts/PROMPT_010_server_bootstrap.md`. Отчёт: `.claude/reports/REPORT_TASK-010_2026-06-05.md`.
+- [x] TASK-011: PostgreSQL на VPS + первая миграция Prisma (включая перезагрузку сервера шагом 0). Промт: `.claude/prompts/PROMPT_011_postgres_migrate.md`. Отчёт: `.claude/reports/REPORT_TASK-011_2026-06-05.md`.
 - [ ] TASK-001: Починить lint-ошибку в `antiage-platform/src/components/shared/CountUp.tsx` (`react-hooks/set-state-in-effect`). Промт: `.claude/prompts/PROMPT_001_lint_countup.md`.
 - [ ] TASK-002: Добавить статьи `BLOG_POSTS` в `antiage-platform/src/app/sitemap.ts` (сейчас в sitemap только листинг /blog).
 - [ ] TASK-003: Добавить дисклеймеры — медицинский (футер + страницы программ/блога) и «не является лекарственным средством» на материалах с БАД (L5, L15, H4).
@@ -25,6 +26,8 @@
 
 - [x] TASK-010 (2026-06-05): RU-VPS защищён — SSH-ключ, deploy+sudo, парольный вход выключен,
   root заблокирован, ufw + fail2ban active. 4/4 проверки доступа пройдены.
+- [x] TASK-011 (2026-06-05): PostgreSQL 16 на VPS (localhost-only), БД antiage + роль antiage_app,
+  миграция init применена (9 таблиц), migrate status = up to date. 4/4 проверки пройдены.
 
 ---
 

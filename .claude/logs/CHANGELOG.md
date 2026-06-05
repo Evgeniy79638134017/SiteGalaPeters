@@ -19,6 +19,23 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-011] PostgreSQL на VPS + первая миграция Prisma — 2026-06-05
+- Что сделано: сервер перезагружен (снят reboot-required); установлен PostgreSQL 16.14 (active,
+  только localhost); создана БД `antiage` + роль `antiage_app` (владелец, least privilege);
+  применена миграция `20260605151106_init` (9 таблиц + 4 enum + 7 unique-индексов), запись в
+  `_prisma_migrations`, `migrate status` = up to date. Креды — только на сервере
+  (`/home/deploy/.antiage_db_env`, 600), в git/отчёт/чат не попадают.
+- Файлы: `antiage-platform/prisma/migrations/20260605151106_init/migration.sql`,
+  `…/migration_lock.toml`, `antiage-platform/.gitattributes` (LF для миграций),
+  `.claude/reports/REPORT_TASK-011_2026-06-05.md`, `.claude/tasks/SPRINT.md` (TASK-011 → [x]).
+- Сборка (antiage-platform): N/A
+- Линт: N/A
+- Проверка типов (tsc): PASS (после prisma generate, клиент v7.5.0)
+- Дельта размера: N/A
+- Проблемы: Windows OpenSSH `-L` туннель нестабилен (падал после 1-го соединения) → миграция
+  применена через `migrate diff` + `migrate deploy` вместо `migrate dev` (артефакт идентичен);
+  migration.sql приведён к LF, checksum в БД синхронизирован, добавлен `.gitattributes`.
+
 ## [TASK-010] Первичная настройка и защита RU-VPS — 2026-06-05
 - Что сделано: сервер 89.108.76.118 (Ubuntu 24.04.3 LTS) защищён — вход только по SSH-ключу,
   создан `deploy` с sudo (NOPASSWD drop-in), парольная аутентификация отключена, пароль root

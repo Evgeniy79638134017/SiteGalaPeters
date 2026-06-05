@@ -1,0 +1,5 @@
+# Prisma migration files must keep LF line endings on every platform,
+# otherwise their content checksum diverges from the value recorded in the
+# database (_prisma_migrations) and `prisma migrate deploy` rejects them.
+prisma/migrations/**/*.sql text eol=lf
+prisma/migrations/**/migration_lock.toml text eol=lf
