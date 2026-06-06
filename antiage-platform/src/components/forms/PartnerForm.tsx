@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
-import { submitPartner } from "@/actions/submitPartner";
+import { postJson } from "@/lib/api";
 import { trackEvent } from "@/lib/analytics";
 
 type FormStep = 1 | 2;
@@ -40,7 +40,7 @@ export function PartnerForm() {
     setIsSubmitting(true);
     trackEvent("partner_form_submitted");
 
-    const result = await submitPartner({ name, email, telegram, phone, about });
+    const result = await postJson("/api/partner", { name, email, telegram, phone, about });
 
     if (result.success) {
       setSubmitted(true);

@@ -1,6 +1,6 @@
 import { SITE_NAME, SITE_DESCRIPTION, TELEGRAM_CHANNEL_URL, YOUTUBE_URL, INSTAGRAM_URL, EMAIL_CONTACT } from "./constants";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://antiage.ru";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gpeters.ru";
 
 export function personJsonLd() {
   return {

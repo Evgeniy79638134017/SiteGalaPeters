@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Check } from "lucide-react";
-import { submitContact } from "@/actions/submitContact";
+import { postJson } from "@/lib/api";
 import { trackEvent } from "@/lib/analytics";
 
 export function ContactFormClient() {
@@ -28,7 +28,7 @@ export function ContactFormClient() {
 
     setIsSubmitting(true);
     trackEvent("contact_form_submitted");
-    const result = await submitContact({ name, email, message });
+    const result = await postJson("/api/contact", { name, email, message });
 
     if (result.success) {
       setSubmitted(true);

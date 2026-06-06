@@ -5,6 +5,7 @@ import Link from "next/link";
 import { calculateBioAge } from "@/lib/quiz-logic";
 import type { QuizResultData } from "@/lib/quiz-logic";
 import { EmailGate } from "@/components/forms/EmailGate";
+import { postJson } from "@/lib/api";
 import { trackEvent } from "@/lib/analytics";
 import { FlaskConical, Activity, Brain, ArrowRight } from "lucide-react";
 
@@ -39,6 +40,7 @@ interface QuizResultsViewProps {
 export function QuizResultsView({ answers }: QuizResultsViewProps) {
   const [gateUnlocked, setGateUnlocked] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [resultToken, setResultToken] = useState<string | null>(null);
 
   const result: QuizResultData = useMemo(() => calculateBioAge(answers), [answers]);
   const quizResultId = useMemo(() => crypto.randomUUID(), []);
@@ -47,17 +49,25 @@ export function QuizResultsView({ answers }: QuizResultsViewProps) {
 
   async function handleEmailSubmit(email: string) {
     setIsSubmitting(true);
-    try {
-      // TODO: вызвать Server Action submitQuiz
-      // Пока просто открываем результаты
-      console.log("Quiz submit:", { email, result, answers });
-      trackEvent("quiz_result_viewed");
+    // Запись в российскую БД через наш API (same-origin /api/quiz).
+    const response = await postJson<{ resultToken: string }>("/api/quiz", {
+      email,
+      answers,
+      bioAge: result.bioAge,
+      realAge: result.realAge,
+      delta: result.delta,
+      pillarPriority: result.pillarPriority,
+      recommendations: result.recommendations,
+      riskLevel: result.riskLevel,
+    });
+    if (response.success) {
+      setResultToken(response.resultToken);
+      trackEvent("quiz_result_viewed", { resultToken: response.resultToken });
       setGateUnlocked(true);
-    } catch {
-      console.error("Failed to submit quiz");
-    } finally {
-      setIsSubmitting(false);
+    } else {
+      console.error("Failed to submit quiz:", response.error);
     }
+    setIsSubmitting(false);
   }
 
   // Gate — email/Telegram
@@ -84,7 +94,7 @@ export function QuizResultsView({ answers }: QuizResultsViewProps) {
   const risk = riskColors[result.riskLevel];
 
   return (
-    <div className="max-w-2xl mx-auto space-y-10">
+    <div className="max-w-2xl mx-auto space-y-10" data-result-token={resultToken ?? undefined}>
       {/* Визуальная шкала */}
       <div className="bg-white rounded-2xl p-6 md:p-8 shadow-sm space-y-5">
         <h2 className="text-center text-teal">Ваш результат</h2>

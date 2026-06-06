@@ -111,7 +111,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const post = getBlogPost(slug);
   if (!post) notFound();
 
-  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://antiage.ru";
+  const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gpeters.ru";
   const shareUrl = `${SITE_URL}/blog/${post.slug}`;
   const shareText = encodeURIComponent(post.title);
 

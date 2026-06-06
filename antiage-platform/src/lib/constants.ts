@@ -7,7 +7,7 @@ export const TELEGRAM_CHANNEL_URL = "https://t.me/antiage_channel";
 export const TELEGRAM_BOT_URL = "https://t.me/antiage_quiz_bot";
 export const YOUTUBE_URL = "https://youtube.com/@antiage";
 export const INSTAGRAM_URL = "https://instagram.com/antiage";
-export const EMAIL_CONTACT = "hello@antiage.ru";
+export const EMAIL_CONTACT = "gpeters@mail.ru";
 
 export const NAV_LINKS = [
   { href: "/programs", label: "Программы" },

@@ -37,7 +37,7 @@ const caveat = Caveat({
   display: "swap",
 });
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://antiage.ru";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gpeters.ru";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
