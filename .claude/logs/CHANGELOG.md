@@ -19,6 +19,21 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-019] Переключение форм фронта на /api + домен gpeters.ru — 2026-06-05
+- Что сделано: формы (контакт/партнёр/квиз) шлют same-origin POST на /api/* (хелпер src/lib/api.ts)
+  вместо server actions → ПДн пишутся в РФ-БД. Квиз-сабмит реализован (был stub), resultToken
+  доходит до результатов. src/actions удалён. Дефолт домена antiage.ru → gpeters.ru (canonical/og,
+  sitemap, robots, jsonld, blog), email hello@antiage.ru → gpeters@mail.ru. Добавлен vercel.json
+  (ignoreCommand). Сквозной тест на https://gpeters.ru: 1/1/1/1/3 строки, тестовые удалены.
+- Файлы: src/lib/api.ts (new), forms/{ContactFormClient,PartnerForm}.tsx, quiz/QuizResults.tsx,
+  app/{layout,sitemap,robots,blog/[slug]/page}.tsx, lib/{constants,jsonld}.ts, vercel.json (new),
+  удалён src/actions/*. Отчёт REPORT_TASK-019_2026-06-05.md, SPRINT (TASK-019 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: пред-существующая ошибка CountUp.tsx (TASK-001), файлы TASK-019 чистые; на build не влияет
+- Проверка типов (tsc): PASS
+- Дельта размера: без новых зависимостей (нативный fetch); кода −141/+68 строк
+- Проблемы: линт-долг CountUp оставлен за TASK-001; соцсети не менялись (уточнит владелец).
+
 ## [TASK-015] Nginx + TLS на gpeters.ru — 2026-06-05
 - Что сделано: Nginx reverse-proxy на VPS — `/` → Vercel (gala-antiage.vercel.app, подмена Host),
   `/api/` → локальный antiage-api (127.0.0.1:3001). TLS Let's Encrypt на gpeters.ru+www (certbot

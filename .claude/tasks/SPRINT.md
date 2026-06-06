@@ -15,7 +15,7 @@
 - [x] TASK-011: PostgreSQL на VPS + первая миграция Prisma (включая перезагрузку сервера шагом 0). Промт: `.claude/prompts/PROMPT_011_postgres_migrate.md`. Отчёт: `.claude/reports/REPORT_TASK-011_2026-06-05.md`.
 - [x] TASK-012: API-сервис приёма форм на VPS (Node+PM2, только 127.0.0.1): /api/quiz, /api/contact, /api/partner + ConsentLog. Промт: `.claude/prompts/PROMPT_012_api_service.md`. Отчёт: `.claude/reports/REPORT_TASK-012_2026-06-05.md`.
 - [x] TASK-015: Nginx + TLS на gpeters.ru: / → Vercel, /api → локальный API; сквозной тест форм. Промт: `.claude/prompts/PROMPT_015_nginx_tls.md`. Отчёт: `.claude/reports/REPORT_TASK-015_2026-06-05.md`.
-- [ ] TASK-019: Переключить формы фронта на /api (same-origin) + домен gpeters.ru в metadata/env. (Промт будет после приёмки TASK-015.)
+- [x] TASK-019: Переключить формы фронта на /api + домен gpeters.ru в metadata (canonical-баг с прода). Промт: `.claude/prompts/PROMPT_019_frontend_switch.md`. Отчёт: `.claude/reports/REPORT_TASK-019_2026-06-05.md`.
 - [ ] TASK-001: Починить lint-ошибку в `antiage-platform/src/components/shared/CountUp.tsx` (`react-hooks/set-state-in-effect`). Промт: `.claude/prompts/PROMPT_001_lint_countup.md`.
 - [ ] TASK-002: Добавить статьи `BLOG_POSTS` в sitemap. Промт: `.claude/prompts/PROMPT_002_blog_sitemap.md`.
 - [ ] TASK-003: Дисклеймеры (медицинский + БАД). Промт: `.claude/prompts/PROMPT_003_disclaimers.md`.
@@ -23,7 +23,8 @@
 
 ### Открытые вопросы для Vision Holder
 
-- [ВОПРОС] Email-провайдер для TASK-014: по Сценарию B (152-ФЗ) — российский ESP (Unisender/Mailopost и т.п.); Resend (зарубежный) только с отдельным решением по трансграничной передаче. Выбрать провайдера.
+- [РЕШЕНО] Контактный email = gpeters@mail.ru (TASK-019 заменит hello@antiage.ru). Ссылки соцсетей — позже.
+- [ВОПРОС] Email-провайдер (российский ESP) для TASK-014 — отложено заказчиком; задача ждёт.
 - Редактура контента под рекламу БАД (L6) и тексты дисклеймеров — нужен ли проход юриста до публикации (см. BACKLOG ВОПРОСЫ).
 
 ### Закрытые задачи
@@ -36,11 +37,11 @@
   приём quiz/contact/partner + ConsentLog. 4/4 проверки пройдены, тестовые данные удалены.
 - [x] TASK-015 (2026-06-05): Nginx + TLS на gpeters.ru (/ → Vercel, /api → локальный API),
   Let's Encrypt + авто-редирект, реальный IP в ConsentLog. 6/6 проверок, тестовая запись удалена.
+- [x] TASK-019 (2026-06-05): формы фронта → same-origin /api (РФ-БД), domain antiage.ru → gpeters.ru
+  (canonical/og fix), src/actions удалён, vercel.json ignoreCommand. 5/5 проверок, тест-данные удалены.
 
 ---
 
 ## Workflow отчётов
 
-После каждой завершённой задачи исполнитель пишет отчёт в `.claude/reports/REPORT_TASK-NNN_YYYY-MM-DD.md`
-по шаблону `.claude/reports/_TEMPLATE.md`. Cowork обязан прочитать отчёт до принятия задачи.
-Подробные правила — в корневом `CLAUDE.md`, секция «Reports w
+После каждой завершённой задачи исполни
