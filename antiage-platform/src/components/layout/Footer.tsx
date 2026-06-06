@@ -132,16 +132,23 @@ export function Footer() {
           </div>
 
           {/* Нижняя строка */}
-          <div className="mt-12 pt-6 border-t border-brand-soft/10 flex flex-col sm:flex-row justify-between items-center gap-3">
-            <p className="text-sm text-brand-soft/50">
-              &copy; {year} {SITE_NAME}. Все права защищены.
+          <div className="mt-12 pt-6 border-t border-brand-soft/10 space-y-4">
+            {/* Медицинский дисклеймер (на всех страницах) */}
+            <p className="text-sm text-brand-soft/60 leading-relaxed">
+              Информация на сайте носит ознакомительный характер, не является медицинской
+              услугой или рекомендацией и не заменяет консультацию врача.
             </p>
-            <Link
-              href="/privacy"
-              className="text-sm text-brand-soft/50 hover:text-brand-soft/80 transition-colors"
-            >
-              Политика конфиденциальности
-            </Link>
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-3">
+              <p className="text-sm text-brand-soft/50">
+                &copy; {year} {SITE_NAME}. Все права защищены.
+              </p>
+              <Link
+                href="/privacy"
+                className="text-sm text-brand-soft/50 hover:text-brand-soft/80 transition-colors"
+              >
+                Политика конфиденциальности
+              </Link>
+            </div>
           </div>
         </div>
       </div>

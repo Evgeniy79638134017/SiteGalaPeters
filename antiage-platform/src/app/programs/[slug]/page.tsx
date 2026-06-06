@@ -5,6 +5,7 @@ import { Check } from "lucide-react";
 import { WaveDivider } from "@/components/shared/WaveDivider";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PROGRAMS } from "@/content/programs";
 
@@ -157,6 +158,11 @@ export default async function ProgramPage({ params }: ProgramPageProps) {
               </Link>
             </div>
           </AnimateOnScroll>
+
+          {/* Дисклеймер БАД */}
+          <div className="mt-12 max-w-3xl mx-auto text-left">
+            <Disclaimer />
+          </div>
         </div>
       </section>
     </>

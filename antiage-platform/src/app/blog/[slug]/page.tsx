@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { BLOG_POSTS, getBlogPost } from "@/content/blog-posts";
 import type { BlogSection } from "@/content/blog-posts";
 import { articleJsonLd } from "@/lib/jsonld";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -166,6 +167,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <div className="space-y-4">
           {post.content.map((section, i) => renderSection(section, i))}
         </div>
+
+        {/* Дисклеймер БАД */}
+        <Disclaimer className="mt-8" />
 
         {/* Источники (PubMed) */}
         {post.sources && post.sources.length > 0 && (

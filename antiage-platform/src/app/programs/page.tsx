@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { WaveDivider } from "@/components/shared/WaveDivider";
 import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
+import { Disclaimer } from "@/components/shared/Disclaimer";
 import { PROGRAMS } from "@/content/programs";
 
 export const metadata: Metadata = {
@@ -85,6 +86,11 @@ export default function ProgramsPage() {
                 </Link>
               </AnimateOnScroll>
             ))}
+          </div>
+
+          {/* Дисклеймер БАД */}
+          <div className="mt-12 max-w-3xl mx-auto">
+            <Disclaimer />
           </div>
         </div>
       </section>

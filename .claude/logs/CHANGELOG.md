@@ -19,6 +19,20 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-003] Дисклеймеры (медицинский + БАД) — 2026-06-05
+- Что сделано: медицинский дисклеймер в Footer.tsx (на всех страницах через layout); новый
+  компонент Disclaimer.tsx («БАД. Не является лекарственным средством.», gold-блок, text-sm)
+  размещён на странице программ, подстраницах программ и статьях блога. Формулировки — рабочая
+  редакция (до юр.гейта), не менялись. Подтверждено grep по prerendered HTML.
+- Файлы: `src/components/shared/Disclaimer.tsx` (new), `src/components/layout/Footer.tsx`,
+  `src/app/programs/page.tsx`, `src/app/programs/[slug]/page.tsx`, `src/app/blog/[slug]/page.tsx`,
+  `.claude/reports/REPORT_TASK-003_2026-06-05.md`, `.claude/tasks/SPRINT.md` (TASK-003 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: незначительная (без новых зависимостей)
+- Проблемы: тексты — рабочая редакция, финал утверждает юрист (гейт −1.4).
+
 ## [TASK-002] Статьи блога в sitemap — 2026-06-05
 - Что сделано: в src/app/sitemap.ts добавлен блок blogPages (по образцу programPages) — 6 записей
   /blog/<slug> из BLOG_POSTS (monthly, priority 0.7). Проверено фактическим вызовом sitemap():
