@@ -19,6 +19,22 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-013] Раздельные согласия (ПДн / рассылка) — 2026-06-05
+- Что сделано: на квизе/партнёрке — два неустановленных чекбокса (ПДн обязателен, рассылка нет),
+  контакт — один (ПДн); квиз-текст включает данные о здоровье. API: consentData=z.literal(true)
+  (иначе 400) + consentMarketing optional; ConsentLog пишет action="data_processing", при маркетинге
+  — вторую строку action="marketing". Схема Prisma не менялась. Деплой: antiage-api пересобран,
+  pm2 reload, healthz 200; фронт — Vercel. Сквозной тест: 1/2/1 строки + 400 без consentData;
+  тестовые данные удалены.
+- Файлы: `…/forms/{EmailGate,ContactFormClient,PartnerForm}.tsx`, `…/quiz/QuizResults.tsx`,
+  `antiage-api/src/{schemas.ts,server.ts}`, `.claude/reports/REPORT_TASK-013_2026-06-05.md`,
+  `.claude/tasks/SPRINT.md` (TASK-013 → [x]).
+- Сборка (antiage-platform): PASS; antiage-api tsc: PASS + deploy + pm2 reload OK
+- Линт: PASS
+- Проверка типов (tsc): PASS (оба пакета)
+- Дельта размера: незначительная (без новых зависимостей)
+- Проблемы: marketing-флаг в EmailContact отложен (нужна миграция) → TASK-014/017.
+
 ## [TASK-004] Единый email-валидатор — 2026-06-05
 - Что сделано: создан src/lib/validators.ts (emailSchema = z.email(), isValidEmail); regex удалён
   из ContactFormClient/PartnerForm/EmailGate; antiage-api/src/schemas.ts переведён z.string().email()
