@@ -19,6 +19,9 @@ export const QuizSubmitSchema = z.object({
     })
   ),
   riskLevel: z.enum(["green", "yellow", "orange"]),
+  // Раздельные согласия (152-ФЗ): обработка ПДн обязательна, рассылка — нет.
+  consentData: z.literal(true),
+  consentMarketing: z.boolean().optional(),
 });
 export type QuizSubmitInput = z.infer<typeof QuizSubmitSchema>;
 
@@ -27,6 +30,8 @@ export const ContactSchema = z.object({
   name: z.string().min(2, "Введите имя"),
   email: z.email("Некорректный email"),
   message: z.string().min(10, "Сообщение слишком короткое"),
+  // Контакт-форма: только согласие на обработку ПДн (рассылки нет).
+  consentData: z.literal(true),
 });
 export type ContactInput = z.infer<typeof ContactSchema>;
 
@@ -37,5 +42,7 @@ export const PartnerSchema = z.object({
   telegram: z.string().optional(),
   phone: z.string().optional(),
   about: z.string().optional(),
+  consentData: z.literal(true),
+  consentMarketing: z.boolean().optional(),
 });
 export type PartnerInput = z.infer<typeof PartnerSchema>;

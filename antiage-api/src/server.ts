@@ -61,8 +61,13 @@ app.post("/api/quiz", async (req: Request, res: Response) => {
       },
     });
     await prisma.consentLog.create({
-      data: { email: d.email, action: "subscribe", source: "quiz_gate", ipAddress, userAgent },
+      data: { email: d.email, action: "data_processing", source: "quiz_gate", ipAddress, userAgent },
     });
+    if (d.consentMarketing === true) {
+      await prisma.consentLog.create({
+        data: { email: d.email, action: "marketing", source: "quiz_gate", ipAddress, userAgent },
+      });
+    }
     return res.status(200).json({ success: true, resultToken });
   } catch (err) {
     console.error("[quiz]", err);
@@ -83,7 +88,7 @@ app.post("/api/contact", async (req: Request, res: Response) => {
       data: { name: d.name, email: d.email, message: d.message, consentGiven: true },
     });
     await prisma.consentLog.create({
-      data: { email: d.email, action: "subscribe", source: "contact_form", ipAddress, userAgent },
+      data: { email: d.email, action: "data_processing", source: "contact_form", ipAddress, userAgent },
     });
     return res.status(200).json({ success: true });
   } catch (err) {
@@ -115,8 +120,13 @@ app.post("/api/partner", async (req: Request, res: Response) => {
       },
     });
     await prisma.consentLog.create({
-      data: { email: d.email, action: "subscribe", source: "partner_form", ipAddress, userAgent },
+      data: { email: d.email, action: "data_processing", source: "partner_form", ipAddress, userAgent },
     });
+    if (d.consentMarketing === true) {
+      await prisma.consentLog.create({
+        data: { email: d.email, action: "marketing", source: "partner_form", ipAddress, userAgent },
+      });
+    }
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error("[partner]", err);

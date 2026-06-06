@@ -29,7 +29,7 @@ export function ContactFormClient() {
 
     setIsSubmitting(true);
     trackEvent("contact_form_submitted");
-    const result = await postJson("/api/contact", { name, email, message });
+    const result = await postJson("/api/contact", { name, email, message, consentData: true });
 
     if (result.success) {
       setSubmitted(true);
@@ -66,10 +66,10 @@ export function ContactFormClient() {
         <Textarea id="contact-message" value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Ваш вопрос или сообщение..." className="min-h-28 text-base bg-white border-brand-soft/50 focus:border-teal-mid resize-none" rows={4} />
       </div>
       <div className="flex items-start gap-3">
-        <Checkbox id="contact-consent" checked={consent} onCheckedChange={(c) => setConsent(c === true)} className="mt-0.5 data-[state=checked]:bg-teal-mid data-[state=checked]:border-teal-mid" />
+        <Checkbox id="contact-consent" checked={consent} onCheckedChange={(c) => setConsent(c === true)} aria-required="true" className="mt-0.5 data-[state=checked]:bg-teal-mid data-[state=checked]:border-teal-mid" />
         <label htmlFor="contact-consent" className="text-sm text-text-muted leading-snug cursor-pointer">
-          Я согласен(а) на обработку персональных данных.{" "}
-          <a href="/privacy" target="_blank" className="text-teal-mid underline">Политика конфиденциальности</a>
+          Я согласен(а) на обработку персональных данных в соответствии с{" "}
+          <a href="/privacy" target="_blank" className="text-teal-mid underline">Политикой конфиденциальности</a>.
         </label>
       </div>
 

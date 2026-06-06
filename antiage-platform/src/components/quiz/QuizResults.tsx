@@ -47,7 +47,7 @@ export function QuizResultsView({ answers }: QuizResultsViewProps) {
 
   const pillar = PILLAR_META[result.pillarPriority];
 
-  async function handleEmailSubmit(email: string) {
+  async function handleEmailSubmit(email: string, consentMarketing: boolean) {
     setIsSubmitting(true);
     // Запись в российскую БД через наш API (same-origin /api/quiz).
     const response = await postJson<{ resultToken: string }>("/api/quiz", {
@@ -59,6 +59,8 @@ export function QuizResultsView({ answers }: QuizResultsViewProps) {
       pillarPriority: result.pillarPriority,
       recommendations: result.recommendations,
       riskLevel: result.riskLevel,
+      consentData: true,
+      consentMarketing,
     });
     if (response.success) {
       setResultToken(response.resultToken);

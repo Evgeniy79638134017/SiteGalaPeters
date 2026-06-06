@@ -23,7 +23,8 @@ export function PartnerForm() {
   const [telegram, setTelegram] = useState("");
   const [phone, setPhone] = useState("");
   const [about, setAbout] = useState("");
-  const [consent, setConsent] = useState(false);
+  const [consentData, setConsentData] = useState(false);
+  const [consentMarketing, setConsentMarketing] = useState(false);
 
   function handleNextStep() {
     setError("");
@@ -36,12 +37,12 @@ export function PartnerForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError("");
-    if (!consent) { setError("Необходимо согласие на обработку данных"); return; }
+    if (!consentData) { setError("Необходимо согласие на обработку данных"); return; }
 
     setIsSubmitting(true);
     trackEvent("partner_form_submitted");
 
-    const result = await postJson("/api/partner", { name, email, telegram, phone, about });
+    const result = await postJson("/api/partner", { name, email, telegram, phone, about, consentData: true, consentMarketing });
 
     if (result.success) {
       setSubmitted(true);
@@ -148,16 +149,29 @@ export function PartnerForm() {
           </div>
           <div className="flex items-start gap-3">
             <Checkbox
-              id="partner-consent"
-              checked={consent}
-              onCheckedChange={(c) => setConsent(c === true)}
+              id="partner-consent-data"
+              checked={consentData}
+              onCheckedChange={(c) => setConsentData(c === true)}
+              aria-required="true"
               className="mt-0.5 data-[state=checked]:bg-brand data-[state=checked]:border-brand"
             />
-            <label htmlFor="partner-consent" className="text-sm text-text-muted leading-snug cursor-pointer">
-              Я согласен(а) на обработку персональных данных и получение сообщений.{" "}
+            <label htmlFor="partner-consent-data" className="text-sm text-text-muted leading-snug cursor-pointer">
+              Я согласен(а) на обработку персональных данных в соответствии с{" "}
               <a href="/privacy" target="_blank" className="text-teal-mid underline">
-                Политика конфиденциальности
+                Политикой конфиденциальности
               </a>
+              .
+            </label>
+          </div>
+          <div className="flex items-start gap-3">
+            <Checkbox
+              id="partner-consent-marketing"
+              checked={consentMarketing}
+              onCheckedChange={(c) => setConsentMarketing(c === true)}
+              className="mt-0.5 data-[state=checked]:bg-brand data-[state=checked]:border-brand"
+            />
+            <label htmlFor="partner-consent-marketing" className="text-sm text-text-muted leading-snug cursor-pointer">
+              Согласен(а) получать информационные и рекламные сообщения (необязательно).
             </label>
           </div>
         </div>

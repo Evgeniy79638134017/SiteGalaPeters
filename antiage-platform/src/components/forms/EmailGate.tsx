@@ -10,13 +10,14 @@ import { trackEvent } from "@/lib/analytics";
 
 interface EmailGateProps {
   quizResultId: string;
-  onEmailSubmit: (email: string) => void;
+  onEmailSubmit: (email: string, consentMarketing: boolean) => void;
   isSubmitting?: boolean;
 }
 
 export function EmailGate({ quizResultId, onEmailSubmit, isSubmitting }: EmailGateProps) {
   const [email, setEmail] = useState("");
-  const [consent, setConsent] = useState(false);
+  const [consentData, setConsentData] = useState(false);
+  const [consentMarketing, setConsentMarketing] = useState(false);
   const [error, setError] = useState("");
 
   function handleSubmit(e: React.FormEvent) {
@@ -31,13 +32,13 @@ export function EmailGate({ quizResultId, onEmailSubmit, isSubmitting }: EmailGa
       setError("Некорректный email");
       return;
     }
-    if (!consent) {
+    if (!consentData) {
       setError("Необходимо согласие на обработку данных");
       return;
     }
 
     trackEvent("quiz_email_submitted");
-    onEmailSubmit(email);
+    onEmailSubmit(email, consentMarketing);
   }
 
   return (
@@ -71,16 +72,31 @@ export function EmailGate({ quizResultId, onEmailSubmit, isSubmitting }: EmailGa
 
         <div className="flex items-start gap-3">
           <Checkbox
-            id="quiz-consent"
-            checked={consent}
-            onCheckedChange={(checked) => setConsent(checked === true)}
+            id="quiz-consent-data"
+            checked={consentData}
+            onCheckedChange={(checked) => setConsentData(checked === true)}
+            aria-required="true"
             className="mt-0.5 data-[state=checked]:bg-teal-mid data-[state=checked]:border-teal-mid"
           />
-          <label htmlFor="quiz-consent" className="text-sm text-text-muted leading-snug cursor-pointer">
-            Я согласен(а) на обработку персональных данных и получение сообщений.{" "}
+          <label htmlFor="quiz-consent-data" className="text-sm text-text-muted leading-snug cursor-pointer">
+            Я согласен(а) на обработку персональных данных, включая данные о состоянии здоровья,
+            в соответствии с{" "}
             <a href="/privacy" target="_blank" className="text-teal-mid underline">
-              Политика конфиденциальности
+              Политикой конфиденциальности
             </a>
+            .
+          </label>
+        </div>
+
+        <div className="flex items-start gap-3">
+          <Checkbox
+            id="quiz-consent-marketing"
+            checked={consentMarketing}
+            onCheckedChange={(checked) => setConsentMarketing(checked === true)}
+            className="mt-0.5 data-[state=checked]:bg-teal-mid data-[state=checked]:border-teal-mid"
+          />
+          <label htmlFor="quiz-consent-marketing" className="text-sm text-text-muted leading-snug cursor-pointer">
+            Согласен(а) получать информационные и рекламные сообщения (необязательно).
           </label>
         </div>
 
