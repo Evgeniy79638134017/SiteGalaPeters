@@ -19,6 +19,18 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-001] Lint-фикс CountUp.tsx — 2026-06-05
+- Что сделано: убрана ошибка `react-hooks/set-state-in-effect` в CountUp.tsx — синхронный
+  `setCount(end)` в reduced-motion ветке эффекта заменён на производное `displayCount` при рендере.
+  Поведение счётчика (анимация и prefers-reduced-motion) сохранено, пропсы не менялись.
+- Файлы: `antiage-platform/src/components/shared/CountUp.tsx`,
+  `.claude/reports/REPORT_TASK-001_2026-06-05.md`, `.claude/tasks/SPRINT.md` (TASK-001 → [x]).
+- Сборка (antiage-platform): N/A
+- Линт: PASS (был 1 error → 0)
+- Проверка типов (tsc): PASS
+- Дельта размера: незначительная (без новых зависимостей)
+- Проблемы: нет.
+
 ## [TASK-019] Переключение форм фронта на /api + домен gpeters.ru — 2026-06-05
 - Что сделано: формы (контакт/партнёр/квиз) шлют same-origin POST на /api/* (хелпер src/lib/api.ts)
   вместо server actions → ПДн пишутся в РФ-БД. Квиз-сабмит реализован (был stub), resultToken

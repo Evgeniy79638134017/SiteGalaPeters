@@ -39,11 +39,9 @@ export function CountUp({
   }, [hasStarted]);
 
   useEffect(() => {
-    if (!hasStarted) return;
-    if (shouldReduceMotion) {
-      setCount(end);
-      return;
-    }
+    // При prefers-reduced-motion анимации нет — конечное значение выводится
+    // напрямую при рендере (displayCount ниже), без setState в эффекте.
+    if (!hasStarted || shouldReduceMotion) return;
 
     const startTime = performance.now();
 
@@ -62,9 +60,12 @@ export function CountUp({
     requestAnimationFrame(animate);
   }, [hasStarted, end, duration, shouldReduceMotion]);
 
+  // При prefers-reduced-motion сразу показываем конечное значение (без анимации).
+  const displayCount = shouldReduceMotion && hasStarted ? end : count;
+
   return (
     <span ref={ref} className={className}>
-      {count}
+      {displayCount}
       {suffix}
     </span>
   );

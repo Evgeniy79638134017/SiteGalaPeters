@@ -16,7 +16,7 @@
 - [x] TASK-012: API-сервис приёма форм на VPS (Node+PM2, только 127.0.0.1): /api/quiz, /api/contact, /api/partner + ConsentLog. Промт: `.claude/prompts/PROMPT_012_api_service.md`. Отчёт: `.claude/reports/REPORT_TASK-012_2026-06-05.md`.
 - [x] TASK-015: Nginx + TLS на gpeters.ru: / → Vercel, /api → локальный API; сквозной тест форм. Промт: `.claude/prompts/PROMPT_015_nginx_tls.md`. Отчёт: `.claude/reports/REPORT_TASK-015_2026-06-05.md`.
 - [x] TASK-019: Переключить формы фронта на /api + домен gpeters.ru в metadata (canonical-баг с прода). Промт: `.claude/prompts/PROMPT_019_frontend_switch.md`. Отчёт: `.claude/reports/REPORT_TASK-019_2026-06-05.md`.
-- [ ] TASK-001: Починить lint-ошибку в `antiage-platform/src/components/shared/CountUp.tsx` (`react-hooks/set-state-in-effect`). Промт: `.claude/prompts/PROMPT_001_lint_countup.md`.
+- [x] TASK-001: Починить lint-ошибку в `antiage-platform/src/components/shared/CountUp.tsx` (`react-hooks/set-state-in-effect`). Промт: `.claude/prompts/PROMPT_001_lint_countup.md`. Отчёт: `.claude/reports/REPORT_TASK-001_2026-06-05.md`.
 - [ ] TASK-002: Добавить статьи `BLOG_POSTS` в sitemap. Промт: `.claude/prompts/PROMPT_002_blog_sitemap.md`.
 - [ ] TASK-003: Дисклеймеры (медицинский + БАД). Промт: `.claude/prompts/PROMPT_003_disclaimers.md`.
 - [ ] TASK-004: Единый валидатор email (z.email, без дубля regex). Промт: `.claude/prompts/PROMPT_004_email_validation.md`.
@@ -39,6 +39,8 @@
   Let's Encrypt + авто-редирект, реальный IP в ConsentLog. 6/6 проверок, тестовая запись удалена.
 - [x] TASK-019 (2026-06-05): формы фронта → same-origin /api (РФ-БД), domain antiage.ru → gpeters.ru
   (canonical/og fix), src/actions удалён, vercel.json ignoreCommand. 5/5 проверок, тест-данные удалены.
+- [x] TASK-001 (2026-06-05): lint-фикс CountUp.tsx (set-state-in-effect) — производное значение
+  вместо setState в эффекте. eslint . зелёный (0 ошибок), поведение счётчика сохранено.
 
 ---
 
