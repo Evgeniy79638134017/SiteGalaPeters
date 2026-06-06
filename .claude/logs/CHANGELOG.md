@@ -19,6 +19,20 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-004] Единый email-валидатор — 2026-06-05
+- Что сделано: создан src/lib/validators.ts (emailSchema = z.email(), isValidEmail); regex удалён
+  из ContactFormClient/PartnerForm/EmailGate; antiage-api/src/schemas.ts переведён z.string().email()
+  → z.email() (×3, зеркальность сохранена). Тексты ошибок и UX не менялись.
+- Файлы: `antiage-platform/src/lib/validators.ts` (new), `…/forms/{ContactFormClient,PartnerForm,
+  EmailGate}.tsx`, `antiage-api/src/schemas.ts`, `.claude/reports/REPORT_TASK-004_2026-06-05.md`,
+  `.claude/tasks/SPRINT.md` (TASK-004 → [x]).
+- Сборка (antiage-platform): PASS; antiage-api tsc: PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS (оба пакета)
+- Дельта размера: незначительная (без новых зависимостей)
+- Проблемы: src/actions уже удалён в TASK-019 (дедуп применён к 3 формам); antiage-api на VPS
+  не передеплоен — z.email() ≡ z.string().email(), схема совместима.
+
 ## [TASK-003] Дисклеймеры (медицинский + БАД) — 2026-06-05
 - Что сделано: медицинский дисклеймер в Footer.tsx (на всех страницах через layout); новый
   компонент Disclaimer.tsx («БАД. Не является лекарственным средством.», gold-блок, text-sm)

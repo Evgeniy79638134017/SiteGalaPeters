@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Send } from "lucide-react";
 import { TELEGRAM_BOT_URL } from "@/lib/constants";
+import { isValidEmail } from "@/lib/validators";
 import { trackEvent } from "@/lib/analytics";
 
 interface EmailGateProps {
@@ -26,7 +27,7 @@ export function EmailGate({ quizResultId, onEmailSubmit, isSubmitting }: EmailGa
       setError("Введите email");
       return;
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!isValidEmail(email)) {
       setError("Некорректный email");
       return;
     }

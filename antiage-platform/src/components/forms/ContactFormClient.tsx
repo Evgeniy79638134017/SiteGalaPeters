@@ -6,6 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Check } from "lucide-react";
 import { postJson } from "@/lib/api";
+import { isValidEmail } from "@/lib/validators";
 import { trackEvent } from "@/lib/analytics";
 
 export function ContactFormClient() {
@@ -22,7 +23,7 @@ export function ContactFormClient() {
     setError("");
 
     if (!name.trim()) { setError("Введите имя"); return; }
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError("Введите корректный email"); return; }
+    if (!email.trim() || !isValidEmail(email)) { setError("Введите корректный email"); return; }
     if (!message.trim()) { setError("Введите сообщение"); return; }
     if (!consent) { setError("Необходимо согласие на обработку данных"); return; }
 

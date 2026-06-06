@@ -19,7 +19,7 @@
 - [x] TASK-001: Починить lint-ошибку в `antiage-platform/src/components/shared/CountUp.tsx` (`react-hooks/set-state-in-effect`). Промт: `.claude/prompts/PROMPT_001_lint_countup.md`. Отчёт: `.claude/reports/REPORT_TASK-001_2026-06-05.md`.
 - [x] TASK-002: Добавить статьи `BLOG_POSTS` в sitemap. Промт: `.claude/prompts/PROMPT_002_blog_sitemap.md`. Отчёт: `.claude/reports/REPORT_TASK-002_2026-06-05.md`.
 - [x] TASK-003: Дисклеймеры (медицинский + БАД). Промт: `.claude/prompts/PROMPT_003_disclaimers.md`. Отчёт: `.claude/reports/REPORT_TASK-003_2026-06-05.md`.
-- [ ] TASK-004: Единый валидатор email (z.email, без дубля regex). Промт: `.claude/prompts/PROMPT_004_email_validation.md`.
+- [x] TASK-004: Единый валидатор email (z.email, без дубля regex). Промт: `.claude/prompts/PROMPT_004_email_validation.md`. Отчёт: `.claude/reports/REPORT_TASK-004_2026-06-05.md`.
 
 ### Открытые вопросы для Vision Holder
 
@@ -45,6 +45,8 @@
   Проверено вызовом sitemap() — 17 URL всего. Lint/tsc/build зелёные.
 - [x] TASK-003 (2026-06-05): медицинский дисклеймер в футере (все страницы) + блок «БАД. Не является
   лекарственным средством» (Disclaimer.tsx) на программах и статьях блога. Тексты в DOM подтверждены.
+- [x] TASK-004 (2026-06-05): единый email-валидатор (src/lib/validators.ts, z.email) — regex убран из
+  3 форм, antiage-api/schemas.ts зеркально на z.email(). Lint/tsc/build зелёные в обоих пакетах.
 
 ---
 

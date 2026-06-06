@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { postJson } from "@/lib/api";
+import { isValidEmail } from "@/lib/validators";
 import { trackEvent } from "@/lib/analytics";
 
 type FormStep = 1 | 2;
@@ -27,7 +28,7 @@ export function PartnerForm() {
   function handleNextStep() {
     setError("");
     if (!name.trim()) { setError("Введите имя"); return; }
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError("Введите корректный email"); return; }
+    if (!email.trim() || !isValidEmail(email)) { setError("Введите корректный email"); return; }
     trackEvent("partner_form_step_2");
     setStep(2);
   }

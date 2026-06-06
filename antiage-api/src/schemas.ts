@@ -5,7 +5,7 @@ import { z } from "zod";
 
 // submitQuiz.ts
 export const QuizSubmitSchema = z.object({
-  email: z.string().email("Некорректный email"),
+  email: z.email("Некорректный email"),
   answers: z.record(z.string(), z.string()),
   bioAge: z.number(),
   realAge: z.number(),
@@ -25,7 +25,7 @@ export type QuizSubmitInput = z.infer<typeof QuizSubmitSchema>;
 // submitContact.ts
 export const ContactSchema = z.object({
   name: z.string().min(2, "Введите имя"),
-  email: z.string().email("Некорректный email"),
+  email: z.email("Некорректный email"),
   message: z.string().min(10, "Сообщение слишком короткое"),
 });
 export type ContactInput = z.infer<typeof ContactSchema>;
@@ -33,7 +33,7 @@ export type ContactInput = z.infer<typeof ContactSchema>;
 // submitPartner.ts
 export const PartnerSchema = z.object({
   name: z.string().min(2, "Введите имя"),
-  email: z.string().email("Некорректный email"),
+  email: z.email("Некорректный email"),
   telegram: z.string().optional(),
   phone: z.string().optional(),
   about: z.string().optional(),
