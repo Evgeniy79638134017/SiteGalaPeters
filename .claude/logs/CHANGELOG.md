@@ -19,6 +19,18 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-002] Статьи блога в sitemap — 2026-06-05
+- Что сделано: в src/app/sitemap.ts добавлен блок blogPages (по образцу programPages) — 6 записей
+  /blog/<slug> из BLOG_POSTS (monthly, priority 0.7). Проверено фактическим вызовом sitemap():
+  17 URL всего, 6 блоговых. robots.ts и прочие записи не трогались.
+- Файлы: `antiage-platform/src/app/sitemap.ts`, `.claude/reports/REPORT_TASK-002_2026-06-05.md`,
+  `.claude/tasks/SPRINT.md` (TASK-002 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: незначительная (без новых зависимостей)
+- Проблемы: нет.
+
 ## [TASK-001] Lint-фикс CountUp.tsx — 2026-06-05
 - Что сделано: убрана ошибка `react-hooks/set-state-in-effect` в CountUp.tsx — синхронный
   `setCount(end)` в reduced-motion ветке эффекта заменён на производное `displayCount` при рендере.

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { PROGRAMS } from "@/content/programs";
+import { BLOG_POSTS } from "@/content/blog-posts";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gpeters.ru";
 
@@ -24,5 +25,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...programPages];
+  const blogPages: MetadataRoute.Sitemap = BLOG_POSTS.map((post) => ({
+    url: `${SITE_URL}/blog/${post.slug}`,
+    lastModified: now,
+    changeFrequency: "monthly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...programPages, ...blogPages];
 }
