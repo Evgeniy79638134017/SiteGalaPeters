@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { PROGRAMS } from "@/content/programs";
+import { HEALTH_PROGRAMS } from "@/content/health-programs";
 import { BLOG_POSTS } from "@/content/blog-posts";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gpeters.ru";
@@ -18,8 +19,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/privacy`, lastModified: now, changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  const programPages: MetadataRoute.Sitemap = PROGRAMS.map((p) => ({
-    url: `${SITE_URL}/programs/${p.slug}`,
+  const programPages: MetadataRoute.Sitemap = [
+    ...PROGRAMS.map((p) => p.slug),
+    ...HEALTH_PROGRAMS.map((p) => p.slug),
+  ].map((slug) => ({
+    url: `${SITE_URL}/programs/${slug}`,
     lastModified: now,
     changeFrequency: "monthly" as const,
     priority: 0.7,

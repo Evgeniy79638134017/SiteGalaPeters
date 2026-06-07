@@ -1,23 +1,23 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import {
+  Heart, Zap, Brain, Flame, Bone, Bug, Apple, Shield, ArrowRight,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { WaveDivider } from "@/components/shared/WaveDivider";
 import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
 import { Disclaimer } from "@/components/shared/Disclaimer";
 import { PROGRAMS } from "@/content/programs";
+import { HEALTH_PROGRAMS, type HealthProgram } from "@/content/health-programs";
 
 export const metadata: Metadata = {
   title: "Программы",
-  description: "Три кита здоровья и молодости: биохимия, биомеханика, биоэнергетика. Комплексный подход к anti-age.",
+  description: "Программы поддержки организма по системам: сердце и сосуды, сон и энергия, нервы, гормоны, суставы, иммунитет и другие. Составы, этапы по месяцам, тон Галины.",
 };
 
-const SEQUENCE = [
-  { label: "БАДы", sub: "фундамент" },
-  { label: "Питание", sub: "осознанность" },
-  { label: "Привычки", sub: "режим" },
-  { label: "Движение", sub: "тело" },
-  { label: "Практики", sub: "мышление" },
-];
+const ICONS: Record<HealthProgram["icon"], LucideIcon> = {
+  Heart, Zap, Brain, Flame, Bone, Bug, Apple, Shield,
+};
 
 export default function ProgramsPage() {
   return (
@@ -31,10 +31,10 @@ export default function ProgramsPage() {
             <span className="text-text">Программы</span>
           </nav>
           <AnimateOnScroll>
-            <h1 className="text-text mb-6 max-w-2xl">Три кита здоровья и молодости</h1>
+            <h1 className="text-text mb-6 max-w-2xl">Программы поддержки организма</h1>
             <p className="text-text-muted text-lg md:text-xl max-w-2xl">
-              Комплексный подход — не что-то одно, а совокупность трёх направлений.
-              Последовательность важнее скорости.
+              Комплексы по системам организма — с составами, этапами по месяцам и понятными
+              шагами. Я собрала их по-дружески, как делилась бы с близким человеком.
             </p>
           </AnimateOnScroll>
         </div>
@@ -42,33 +42,54 @@ export default function ProgramsPage() {
 
       <WaveDivider fromColor="var(--color-brand-cream)" toColor="var(--color-teal-bg)" variant={1} />
 
-      {/* ИНФОГРАФИКА ПОСЛЕДОВАТЕЛЬНОСТИ */}
+      {/* 8 ПРОГРАММ */}
       <section className="bg-teal-bg py-16 md:py-20">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-          <AnimateOnScroll>
-            <h2 className="text-center text-teal mb-10">Последовательность — ключ к успеху</h2>
-          </AnimateOnScroll>
-          <div className="flex flex-wrap justify-center gap-4 md:gap-2">
-            {SEQUENCE.map((item, i) => (
-              <AnimateOnScroll key={item.label} delay={i * 0.1} className="flex items-center">
-                <div className="text-center px-4 py-3">
-                  <div className="font-heading text-lg md:text-xl font-bold text-teal">{item.label}</div>
-                  <div className="text-xs text-text-muted mt-1">{item.sub}</div>
-                </div>
-                {i < SEQUENCE.length - 1 && (
-                  <ArrowRight className="w-5 h-5 text-teal-soft hidden md:block" />
-                )}
-              </AnimateOnScroll>
-            ))}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {HEALTH_PROGRAMS.map((prog, i) => {
+              const Icon = ICONS[prog.icon];
+              return (
+                <AnimateOnScroll key={prog.slug} delay={(i % 3) * 0.1}>
+                  <Link href={`/programs/${prog.slug}`} className="group block h-full">
+                    <div className="bg-white rounded-2xl p-6 shadow-sm border-b-[3px] border-teal-soft hover:-translate-y-1 hover:shadow-md transition-all h-full flex flex-col">
+                      <div className="w-12 h-12 rounded-xl bg-teal-bg flex items-center justify-center mb-4">
+                        <Icon className="w-6 h-6 text-teal-mid" strokeWidth={1.5} />
+                      </div>
+                      <h3 className="text-lg mb-2">{prog.title}</h3>
+                      <p className="text-text-muted text-sm flex-1 leading-relaxed">{prog.description}</p>
+                      <div className="flex items-center justify-between mt-5">
+                        <span className="text-xs font-semibold text-teal bg-teal-bg rounded-full px-3 py-1">
+                          {prog.duration}
+                        </span>
+                        <span className="inline-flex items-center gap-1 text-teal-mid font-medium text-sm group-hover:gap-2 transition-all">
+                          Подробнее <ArrowRight className="w-4 h-4" />
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                </AnimateOnScroll>
+              );
+            })}
+          </div>
+
+          <div className="mt-10 max-w-3xl mx-auto">
+            <Disclaimer />
           </div>
         </div>
       </section>
 
       <WaveDivider fromColor="var(--color-teal-bg)" toColor="var(--color-brand-cream)" variant={2} />
 
-      {/* 3 КАРТОЧКИ ПРОГРАММ */}
+      {/* ПОДХОД: ТРИ КИТА */}
       <section className="bg-brand-cream py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <AnimateOnScroll>
+            <h2 className="text-center text-text mb-3">Мой подход: три кита здоровья</h2>
+            <p className="text-text-muted text-center max-w-2xl mx-auto mb-12">
+              За всеми программами стоит одна философия — комплексный подход из трёх направлений.
+              Последовательность важнее скорости.
+            </p>
+          </AnimateOnScroll>
           <div className="grid md:grid-cols-3 gap-8">
             {PROGRAMS.map((prog, i) => (
               <AnimateOnScroll key={prog.slug} delay={i * 0.15}>
@@ -86,11 +107,6 @@ export default function ProgramsPage() {
                 </Link>
               </AnimateOnScroll>
             ))}
-          </div>
-
-          {/* Дисклеймер БАД */}
-          <div className="mt-12 max-w-3xl mx-auto">
-            <Disclaimer />
           </div>
         </div>
       </section>

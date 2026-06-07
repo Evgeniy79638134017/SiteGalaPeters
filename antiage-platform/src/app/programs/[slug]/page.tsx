@@ -8,27 +8,37 @@ import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
 import { Disclaimer } from "@/components/shared/Disclaimer";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PROGRAMS } from "@/content/programs";
+import { HEALTH_PROGRAMS, getHealthProgram } from "@/content/health-programs";
+import { HealthProgramPage } from "@/components/programs/HealthProgramPage";
 
 interface ProgramPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return PROGRAMS.map((p) => ({ slug: p.slug }));
+  return [
+    ...PROGRAMS.map((p) => ({ slug: p.slug })),
+    ...HEALTH_PROGRAMS.map((p) => ({ slug: p.slug })),
+  ];
 }
 
 export async function generateMetadata({ params }: ProgramPageProps): Promise<Metadata> {
   const { slug } = await params;
   const program = PROGRAMS.find((p) => p.slug === slug);
-  if (!program) return {};
-  return {
-    title: program.title,
-    description: program.description,
-  };
+  if (program) return { title: program.title, description: program.description };
+  const health = getHealthProgram(slug);
+  if (health) return { title: health.title, description: health.description };
+  return {};
 }
 
 export default async function ProgramPage({ params }: ProgramPageProps) {
   const { slug } = await params;
+
+  // Программы здоровья (каталог из 8) — отдельная структура страницы
+  const health = getHealthProgram(slug);
+  if (health) return <HealthProgramPage program={health} />;
+
+  // Три «кита» (биохимия/биомеханика/биоэнергетика) — прежняя структура
   const program = PROGRAMS.find((p) => p.slug === slug);
   if (!program) notFound();
 
