@@ -5,6 +5,7 @@ import { BLOG_POSTS, getBlogPost } from "@/content/blog-posts";
 import type { BlogSection } from "@/content/blog-posts";
 import { articleJsonLd } from "@/lib/jsonld";
 import { Disclaimer } from "@/components/shared/Disclaimer";
+import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -224,7 +225,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href="https://t.me/antiage_channel"
+              href={TELEGRAM_CHANNEL_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-12 items-center justify-center rounded-xl bg-teal-mid px-6 text-white font-semibold hover:bg-teal transition-colors"

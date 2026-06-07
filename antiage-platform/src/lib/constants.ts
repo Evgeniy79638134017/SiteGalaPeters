@@ -3,10 +3,13 @@ export const SITE_TAGLINE = "Молодость доступна каждому"
 export const SITE_DESCRIPTION =
   "Эксперт по anti-age с 30-летним опытом. Три кита здоровья: биохимия, биомеханика, биоэнергетика.";
 
-export const TELEGRAM_CHANNEL_URL = "https://t.me/antiage_channel";
+export const TELEGRAM_CHANNEL_URL = "https://t.me/GalaProMolodost";
 export const TELEGRAM_BOT_URL = "https://t.me/antiage_quiz_bot";
-export const YOUTUBE_URL = "https://youtube.com/@antiage";
-export const INSTAGRAM_URL = "https://instagram.com/antiage";
+export const YOUTUBE_URL = "https://youtube.com/@galinapeters";
+export const INSTAGRAM_URL = "https://www.instagram.com/galina.peters";
+export const TIKTOK_URL = "https://www.tiktok.com/@gala_lucky";
+// TODO: заменить на реферальную ссылку agenyz Галины, когда придёт код (используется кнопками «Заказать» в TASK-053)
+export const ORDER_URL = "https://t.me/GalaProMolodost";
 export const EMAIL_CONTACT = "gpeters@mail.ru";
 
 export const NAV_LINKS = [

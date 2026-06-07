@@ -5,16 +5,17 @@ import {
   TELEGRAM_CHANNEL_URL,
   YOUTUBE_URL,
   INSTAGRAM_URL,
+  TIKTOK_URL,
   EMAIL_CONTACT,
   SITE_NAME,
 } from "@/lib/constants";
 import { WaveDivider } from "@/components/shared/WaveDivider";
 
 const SOCIAL_LINKS = [
-  { href: TELEGRAM_CHANNEL_URL, icon: Send, label: "Telegram" },
-  { href: YOUTUBE_URL, icon: Video, label: "YouTube" },
-  { href: INSTAGRAM_URL, icon: Camera, label: "Instagram" },
-  { href: `mailto:${EMAIL_CONTACT}`, icon: Mail, label: "Email" },
+  { href: TELEGRAM_CHANNEL_URL, icon: Send, label: "Telegram", meta: false },
+  { href: YOUTUBE_URL, icon: Video, label: "YouTube", meta: false },
+  { href: INSTAGRAM_URL, icon: Camera, label: "Instagram", meta: true },
+  { href: `mailto:${EMAIL_CONTACT}`, icon: Mail, label: "Email", meta: false },
 ];
 
 const PROGRAM_LINKS = [
@@ -103,19 +104,32 @@ export function Footer() {
               <h3 className="text-base font-semibold text-brand-soft mb-4">
                 Мы в соцсетях
               </h3>
-              <div className="flex gap-3">
+              <div className="flex flex-wrap gap-3">
                 {SOCIAL_LINKS.map((social) => (
                   <a
                     key={social.label}
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft/10 text-brand-soft/70 hover:bg-brand/20 hover:text-brand-light transition-colors"
-                    aria-label={social.label}
+                    className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-brand-soft/10 text-brand-soft/70 hover:bg-brand/20 hover:text-brand-light transition-colors"
+                    aria-label={social.meta ? `${social.label} *` : social.label}
                   >
                     <social.icon className="h-5 w-5" />
+                    {social.meta && (
+                      <span className="absolute top-0.5 right-1 text-[11px] leading-none text-brand-soft/60">*</span>
+                    )}
                   </a>
                 ))}
+                {/* TikTok — иконки в lucide нет, текстовая ссылка в том же стиле */}
+                <a
+                  href={TIKTOK_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex h-11 items-center justify-center rounded-xl bg-brand-soft/10 px-4 text-sm font-medium text-brand-soft/70 hover:bg-brand/20 hover:text-brand-light transition-colors"
+                  aria-label="TikTok"
+                >
+                  TikTok
+                </a>
               </div>
               <div className="mt-6">
                 <a
@@ -149,6 +163,11 @@ export function Footer() {
                 Политика конфиденциальности
               </Link>
             </div>
+            {/* Юридическая сноска по Instagram/Meta */}
+            <p className="text-xs text-brand-soft/40 leading-relaxed">
+              * Meta Platforms (Instagram) признана экстремистской организацией и запрещена
+              на территории РФ
+            </p>
           </div>
         </div>
       </div>

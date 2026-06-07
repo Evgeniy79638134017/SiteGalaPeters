@@ -9,6 +9,7 @@ import { ArrowLeft, ArrowRight, Check } from "lucide-react";
 import { postJson } from "@/lib/api";
 import { isValidEmail } from "@/lib/validators";
 import { trackEvent } from "@/lib/analytics";
+import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 
 type FormStep = 1 | 2;
 
@@ -63,7 +64,7 @@ export function PartnerForm() {
           Мы свяжемся с вами в течение 24 часов. А пока — подписывайтесь на наш Telegram-канал.
         </p>
         <a
-          href="https://t.me/antiage_channel"
+          href={TELEGRAM_CHANNEL_URL}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex h-14 items-center justify-center rounded-xl bg-teal-mid px-8 text-white font-semibold hover:bg-teal transition-colors"

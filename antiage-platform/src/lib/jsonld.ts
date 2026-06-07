@@ -1,4 +1,4 @@
-import { SITE_NAME, SITE_DESCRIPTION, TELEGRAM_CHANNEL_URL, YOUTUBE_URL, INSTAGRAM_URL, EMAIL_CONTACT } from "./constants";
+import { SITE_NAME, SITE_DESCRIPTION, TELEGRAM_CHANNEL_URL, YOUTUBE_URL, INSTAGRAM_URL, TIKTOK_URL, EMAIL_CONTACT } from "./constants";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://gpeters.ru";
 
@@ -12,7 +12,7 @@ export function personJsonLd() {
     image: `${SITE_URL}/images/expert.jpg`,
     jobTitle: "Эксперт по anti-age",
     knowsAbout: ["Anti-age", "БАДы", "Биохимия", "Биомеханика", "Биоэнергетика", "Здоровье после 50"],
-    sameAs: [TELEGRAM_CHANNEL_URL, YOUTUBE_URL, INSTAGRAM_URL],
+    sameAs: [TELEGRAM_CHANNEL_URL, YOUTUBE_URL, INSTAGRAM_URL, TIKTOK_URL],
   };
 }
 
@@ -30,7 +30,7 @@ export function organizationJsonLd() {
       contactType: "customer service",
       availableLanguage: "Russian",
     },
-    sameAs: [TELEGRAM_CHANNEL_URL, YOUTUBE_URL, INSTAGRAM_URL],
+    sameAs: [TELEGRAM_CHANNEL_URL, YOUTUBE_URL, INSTAGRAM_URL, TIKTOK_URL],
   };
 }
 

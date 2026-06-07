@@ -7,6 +7,7 @@ import type { QuizResultData } from "@/lib/quiz-logic";
 import { EmailGate } from "@/components/forms/EmailGate";
 import { postJson } from "@/lib/api";
 import { trackEvent } from "@/lib/analytics";
+import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 import { FlaskConical, Activity, Brain, ArrowRight } from "lucide-react";
 
 const PILLAR_META = {
@@ -188,7 +189,7 @@ export function QuizResultsView({ answers }: QuizResultsViewProps) {
           Записаться на консультацию
         </Link>
         <a
-          href="https://t.me/antiage_channel"
+          href={TELEGRAM_CHANNEL_URL}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackEvent("quiz_cta_clicked", { type: "telegram" })}

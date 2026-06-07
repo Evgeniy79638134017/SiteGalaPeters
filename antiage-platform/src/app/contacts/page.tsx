@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 const CONTACT_CARDS = [
   { Icon: Send, label: "Telegram", value: "Канал и чат", href: TELEGRAM_CHANNEL_URL, color: "text-teal-mid", bg: "bg-teal-bg" },
   { Icon: Mail, label: "Email", value: EMAIL_CONTACT, href: `mailto:${EMAIL_CONTACT}`, color: "text-brand", bg: "bg-brand-bg" },
-  { Icon: Camera, label: "Instagram", value: "@antiage", href: INSTAGRAM_URL, color: "text-teal-light", bg: "bg-teal-bg" },
+  { Icon: Camera, label: "Instagram", value: "galina.peters", href: INSTAGRAM_URL, color: "text-teal-light", bg: "bg-teal-bg" },
   { Icon: Video, label: "YouTube", value: "AntiAge канал", href: YOUTUBE_URL, color: "text-brand-dark", bg: "bg-brand-bg" },
 ];
 
