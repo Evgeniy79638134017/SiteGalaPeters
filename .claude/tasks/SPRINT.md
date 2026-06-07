@@ -12,6 +12,7 @@
 - [x] TASK-051: Видео-фон в Hero главной (затемнение, постер 1.5s, фоллбеки; видео на VPS /media/). Промт: `.claude/prompts/PROMPT_051_hero_video.md`. Отчёт: `.claude/reports/REPORT_TASK-051_2026-06-06.md`.
 - [x] TASK-052: Реальные фото на сайт (about/preview/accent; назначения утверждены; …27 — ждёт уточнения). Промт: `.claude/prompts/PROMPT_052_real_photos.md`. Отчёт: `.claude/reports/REPORT_TASK-052_2026-06-06.md`.
 - [x] TASK-054: Реальные соцсети/Telegram (GalaProMolodost, galina.peters, @galinapeters, TikTok) + ORDER_URL. Промт: `.claude/prompts/PROMPT_054_socials.md`. Отчёт: `.claude/reports/REPORT_TASK-054_2026-06-06.md`.
+- [x] TASK-055: Возраст 62 → 63 (текущий — да; историческое «зрение в 62» — нет). Промт: `.claude/prompts/PROMPT_055_age_update.md`. Отчёт: `.claude/reports/REPORT_TASK-055_2026-06-07.md`.
 - [ ] TASK-053: Каталог 8 программ (структура+контент doksveta, ToV Галины; реф-код позже). Промт: `.claude/prompts/PROMPT_053_programs_catalog.md`. Зависит от TASK-054 (ORDER_URL).
 
 ### Вопросы для Vision Holder (SPRINT-3)
@@ -57,7 +58,7 @@
 ### Открытые вопросы для Vision Holder
 
 - [РЕШЕНО] Контактный email = gpeters@mail.ru ✅; соцсети получены 06.06: TG t.me/GalaProMolodost, IG galina.peters, YT @galinapeters, TikTok gala_lucky (TASK-054). Реф-код agenyz — придёт позже (кнопки временно на TG). Цифры: 30+ лет/1000+ людей. Тон §3 — ок.
-- [ВОПРОС] В описании канала Галины — «63 — и чувствую себя лучше, чем в 30», на сайте везде «62». Обновлять возраст по всему сайту на 63?
+- [РЕШЕНО 07.06] Возраст: текущий = 63 (TASK-055); исторические упоминания и slug статьи про зрение — не трогаем.
 - [ВОПРОС] Email-провайдер (российский ESP) для TASK-014 — отложено заказчиком; задача ждёт.
 - Редактура контента под рекламу БАД (L6) и тексты дисклеймеров — нужен ли проход юриста до публикации (см. BACKLOG ВОПРОСЫ).
 
@@ -68,4 +69,4 @@
 - [x] TASK-011 (2026-06-05): PostgreSQL 16 на VPS (localhost-only), БД antiage + роль antiage_app,
   миграция init применена (9 таблиц), migrate status = up to date. 4/4 проверки пройдены.
 - [x] TASK-012 (2026-06-05): API-сервис antiage-api (Express+Prisma) под PM2 на 127.0.0.1:3001,
-  приём quiz/contact/partner + ConsentLog. 4/4 проверки пройдены, тестовые данные удален
+  приём quiz/contact/partner + ConsentLog. 4/4 проверки

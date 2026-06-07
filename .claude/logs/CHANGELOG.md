@@ -19,6 +19,21 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-055] Возраст 62 → 63 (текущий) — 2026-06-07
+- Что сделано: текущий возраст обновлён на 63 (hero, TRUST_BADGES, Results count-up,
+  AboutPreview, таймлайн /about: 2025/62 → 2026/63, и единственное литеральное «Мне сейчас 62»
+  в блоге). Исторические «62» сохранены: статья «…зрение в 62 года» (slug/заголовок/тело),
+  истории прошлых лет в телах статей, DOI, CSS. Каждое вхождение разобрано в отчёте.
+  Прод проверен: hero и /about показывают 63; статья zrenie-v-62 = 200, заголовок неизменен.
+- Файлы: `src/components/sections/{Hero,Results,AboutPreview}.tsx`, `src/lib/constants.ts`,
+  `src/app/about/page.tsx`, `src/content/blog-posts.ts`,
+  `.claude/reports/REPORT_TASK-055_2026-06-07.md`, `.claude/tasks/SPRINT.md` (TASK-055 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: 0 (текстовые правки, без зависимостей)
+- Проблемы: тела других статей блога сохраняют «Мне 62» (датированный контент, по DON'T промта).
+
 ## [TASK-054] Реальные соцсети/Telegram + ORDER_URL — 2026-06-06
 - Что сделано: реальные ссылки Галины в constants.ts (t.me/GalaProMolodost, @galinapeters,
   galina.peters) + новые TIKTOK_URL и ORDER_URL (TODO: реф-ссылка agenyz). Футер: TikTok-ссылка
