@@ -11,7 +11,8 @@
 - [x] TASK-050 (2026-06-06, Cowork): медиа готовы в ContentFiles/web_ready/ — hero-bg.mp4 (9.3 МБ, 720p/25fps, без звука), 4 постера-кандидата, OG-кандидат 1200x630, 6 фото в jpg+webp (≤1600px). CR3 отложен (нет RAW-конвертера; нужен JPG-экспорт от владельца).
 - [x] TASK-051: Видео-фон в Hero главной (затемнение, постер 1.5s, фоллбеки; видео на VPS /media/). Промт: `.claude/prompts/PROMPT_051_hero_video.md`. Отчёт: `.claude/reports/REPORT_TASK-051_2026-06-06.md`.
 - [x] TASK-052: Реальные фото на сайт (about/preview/accent; назначения утверждены; …27 — ждёт уточнения). Промт: `.claude/prompts/PROMPT_052_real_photos.md`. Отчёт: `.claude/reports/REPORT_TASK-052_2026-06-06.md`.
-- [ ] TASK-053: Каталог программ по структуре doksveta.ru/programs (карточки: название, для кого/симптомы, длительность, подстраницы) контент переносится с doksveta и адаптируется под ToV Галины (драфт — Cowork).
+- [x] TASK-054: Реальные соцсети/Telegram (GalaProMolodost, galina.peters, @galinapeters, TikTok) + ORDER_URL. Промт: `.claude/prompts/PROMPT_054_socials.md`. Отчёт: `.claude/reports/REPORT_TASK-054_2026-06-06.md`.
+- [ ] TASK-053: Каталог 8 программ (структура+контент doksveta, ToV Галины; реф-код позже). Промт: `.claude/prompts/PROMPT_053_programs_catalog.md`. Зависит от TASK-054 (ORDER_URL).
 
 ### Вопросы для Vision Holder (SPRINT-3)
 
@@ -55,7 +56,8 @@
 
 ### Открытые вопросы для Vision Holder
 
-- [РЕШЕНО] Контактный email = gpeters@mail.ru (TASK-019 заменит hello@antiage.ru). Ссылки соцсетей — позже.
+- [РЕШЕНО] Контактный email = gpeters@mail.ru ✅; соцсети получены 06.06: TG t.me/GalaProMolodost, IG galina.peters, YT @galinapeters, TikTok gala_lucky (TASK-054). Реф-код agenyz — придёт позже (кнопки временно на TG). Цифры: 30+ лет/1000+ людей. Тон §3 — ок.
+- [ВОПРОС] В описании канала Галины — «63 — и чувствую себя лучше, чем в 30», на сайте везде «62». Обновлять возраст по всему сайту на 63?
 - [ВОПРОС] Email-провайдер (российский ESP) для TASK-014 — отложено заказчиком; задача ждёт.
 - Редактура контента под рекламу БАД (L6) и тексты дисклеймеров — нужен ли проход юриста до публикации (см. BACKLOG ВОПРОСЫ).
 
@@ -66,5 +68,4 @@
 - [x] TASK-011 (2026-06-05): PostgreSQL 16 на VPS (localhost-only), БД antiage + роль antiage_app,
   миграция init применена (9 таблиц), migrate status = up to date. 4/4 проверки пройдены.
 - [x] TASK-012 (2026-06-05): API-сервис antiage-api (Express+Prisma) под PM2 на 127.0.0.1:3001,
-  приём quiz/contact/partner + ConsentLog. 4/4 проверки пройдены, тестовые данные удалены.
-- [x] TASK-015 (2026-06-05): Nginx + TLS на gpeters.ru 
+  приём quiz/contact/partner + ConsentLog. 4/4 проверки пройдены, тестовые данные удален

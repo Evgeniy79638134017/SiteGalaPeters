@@ -19,6 +19,22 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-054] Реальные соцсети/Telegram + ORDER_URL — 2026-06-06
+- Что сделано: реальные ссылки Галины в constants.ts (t.me/GalaProMolodost, @galinapeters,
+  galina.peters) + новые TIKTOK_URL и ORDER_URL (TODO: реф-ссылка agenyz). Футер: TikTok-ссылка
+  + сноска Meta/Instagram. jsonld sameAs — 4 ссылки. Заменены хардкод t.me/antiage_channel
+  (QuizResults/PartnerForm/blog) на константу; контакты @antiage → galina.peters. Бот-URL не трогали.
+  Проверено на проде: старых @antiage/antiage_channel нет, новые ссылки присутствуют.
+- Файлы: `src/lib/{constants,jsonld}.ts`, `src/components/layout/Footer.tsx`,
+  `src/app/contacts/page.tsx`, `src/components/quiz/QuizResults.tsx`,
+  `src/components/forms/PartnerForm.tsx`, `src/app/blog/[slug]/page.tsx`,
+  `.claude/reports/REPORT_TASK-054_2026-06-06.md`, `.claude/tasks/SPRINT.md` (TASK-054 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: без новых зависимостей
+- Проблемы: бот-URL antiage_quiz_bot оставлен (TASK-031); ORDER_URL временно = TG-канал (реф-код позже).
+
 ## [TASK-052] Реальные фото на сайт (next/image) — 2026-06-06
 - Что сделано: плейсхолдеры «Фото эксперта» заменены реальными фото через next/image —
   AboutPreview (главная) = expert-preview.jpg (fill, aspect-square); /about hero = портрет
