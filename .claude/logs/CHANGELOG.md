@@ -19,6 +19,22 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-051] Видео-фон в Hero главной + OG-превью — 2026-06-06
+- Что сделано: затемнённый фоновый <video> в Hero (autoPlay/muted/loop/playsInline, poster,
+  preload=metadata), светлый читаемый текст поверх; prefers-reduced-motion → статичный постер.
+  Видео отдаётся nginx с VPS (/media/hero-bg.mp4, expires 30d), в git не попадает. В metadata —
+  openGraph.images (/images/og.jpg 1200x630) + twitter summary_large_image. 5/5 проверок пройдены
+  (скрины desktop/mobile в reports/assets). Исправлен баг: framer-motion stagger оставлял hero-текст
+  в opacity:0 — контент переведён на видимый-по-умолчанию рендер.
+- Файлы: `…/sections/Hero.tsx`, `…/app/layout.tsx`, `public/images/{hero-poster,og}.jpg`,
+  `.claude/reports/REPORT_TASK-051_2026-06-06.md` (+assets), `.claude/tasks/SPRINT.md` (TASK-051 → [x]).
+  На сервере (вне git): /var/www/media/hero-bg.mp4 + nginx location /media/.
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: +2 изображения (~232 КБ) в git; видео (9.1 МБ) на VPS, без новых npm-зависимостей
+- Проблемы: видео full-bleed → текст hero сделан белым, правый фото-плейсхолдер заменён видео.
+
 ## [TASK-013] Раздельные согласия (ПДн / рассылка) — 2026-06-05
 - Что сделано: на квизе/партнёрке — два неустановленных чекбокса (ПДн обязателен, рассылка нет),
   контакт — один (ПДн); квиз-текст включает данные о здоровье. API: consentData=z.literal(true)
