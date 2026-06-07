@@ -65,6 +65,21 @@ export const metadata: Metadata = {
     locale: "ru_RU",
     siteName: "AntiAge — Молодость доступна каждому",
     url: SITE_URL,
+    images: [
+      {
+        url: "/images/og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "AntiAge — Молодость доступна каждому",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AntiAge — Молодость доступна каждому",
+    description:
+      "Эксперт по anti-age с 30-летним опытом. Пройдите тест и узнайте свой биологический возраст.",
+    images: ["/images/og.jpg"],
   },
   robots: {
     index: true,
