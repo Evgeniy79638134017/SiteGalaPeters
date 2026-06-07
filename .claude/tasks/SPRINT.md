@@ -6,9 +6,11 @@
 
 ### Задачи (черновик, промты по мере готовности решений)
 
+- [x] TASK-022: Rate limiting /api/* в nginx (H1; решение PM — без Arcjet). Промт: `.claude/prompts/PROMPT_022_rate_limit.md`. Отчёт: `.claude/reports/REPORT_TASK-022_2026-06-06.md`.
+
 - [x] TASK-050 (2026-06-06, Cowork): медиа готовы в ContentFiles/web_ready/ — hero-bg.mp4 (9.3 МБ, 720p/25fps, без звука), 4 постера-кандидата, OG-кандидат 1200x630, 6 фото в jpg+webp (≤1600px). CR3 отложен (нет RAW-конвертера; нужен JPG-экспорт от владельца).
 - [x] TASK-051: Видео-фон в Hero главной (затемнение, постер 1.5s, фоллбеки; видео на VPS /media/). Промт: `.claude/prompts/PROMPT_051_hero_video.md`. Отчёт: `.claude/reports/REPORT_TASK-051_2026-06-06.md`.
-- [ ] TASK-052: Реальные фото на сайт: hero, about, OG-изображение 1200x630 (закрывает аудит M4) + next/image (M5).
+- [ ] TASK-052: Реальные фото на сайт (about/preview/accent; назначения утверждены; …27 — ждёт уточнения). Промт: `.claude/prompts/PROMPT_052_real_photos.md`.
 - [ ] TASK-053: Каталог программ по структуре doksveta.ru/programs (карточки: название, для кого/симптомы, длительность, подстраницы) контент переносится с doksveta и адаптируется под ToV Галины (драфт — Cowork).
 
 ### Вопросы для Vision Holder (SPRINT-3)

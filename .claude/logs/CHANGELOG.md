@@ -19,6 +19,20 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-022] Rate limiting /api/* в nginx — 2026-06-06
+- Что сделано: nginx limit_req для форм /api/* (без Arcjet). Зона api_forms по $binary_remote_addr,
+  rate=10r/m, burst=5 nodelay, статус 429; GET /api/healthz исключён (exact location). Лимит только
+  на /api/ (страницы / не трогались). Тест: healthz×3=200; 20 быстрых POST → 7×200/13×429; в БД
+  7/7 строк (только от успешных), тестовые удалены. nginx -t ok, reload, формы работают.
+- Файлы (конфиг сервера, вне git — фрагменты в отчёте): /etc/nginx/conf.d/ratelimit.conf,
+  /etc/nginx/sites-available/gpeters.ru. `.claude/reports/REPORT_TASK-022_2026-06-06.md`,
+  `.claude/tasks/SPRINT.md` (TASK-022 → [x]).
+- Сборка (antiage-platform): N/A (только nginx на VPS)
+- Линт: N/A
+- Проверка типов (tsc): N/A
+- Дельта размера: N/A
+- Проблемы: нет.
+
 ## [TASK-051] Видео-фон в Hero главной + OG-превью — 2026-06-06
 - Что сделано: затемнённый фоновый <video> в Hero (autoPlay/muted/loop/playsInline, poster,
   preload=metadata), светлый читаемый текст поверх; prefers-reduced-motion → статичный постер.
