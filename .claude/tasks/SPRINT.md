@@ -10,7 +10,7 @@
 
 - [x] TASK-050 (2026-06-06, Cowork): медиа готовы в ContentFiles/web_ready/ — hero-bg.mp4 (9.3 МБ, 720p/25fps, без звука), 4 постера-кандидата, OG-кандидат 1200x630, 6 фото в jpg+webp (≤1600px). CR3 отложен (нет RAW-конвертера; нужен JPG-экспорт от владельца).
 - [x] TASK-051: Видео-фон в Hero главной (затемнение, постер 1.5s, фоллбеки; видео на VPS /media/). Промт: `.claude/prompts/PROMPT_051_hero_video.md`. Отчёт: `.claude/reports/REPORT_TASK-051_2026-06-06.md`.
-- [ ] TASK-052: Реальные фото на сайт (about/preview/accent; назначения утверждены; …27 — ждёт уточнения). Промт: `.claude/prompts/PROMPT_052_real_photos.md`.
+- [x] TASK-052: Реальные фото на сайт (about/preview/accent; назначения утверждены; …27 — ждёт уточнения). Промт: `.claude/prompts/PROMPT_052_real_photos.md`. Отчёт: `.claude/reports/REPORT_TASK-052_2026-06-06.md`.
 - [ ] TASK-053: Каталог программ по структуре doksveta.ru/programs (карточки: название, для кого/симптомы, длительность, подстраницы) контент переносится с doksveta и адаптируется под ToV Галины (драфт — Cowork).
 
 ### Вопросы для Vision Holder (SPRINT-3)

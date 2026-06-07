@@ -19,6 +19,21 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-052] Реальные фото на сайт (next/image) — 2026-06-06
+- Что сделано: плейсхолдеры «Фото эксперта» заменены реальными фото через next/image —
+  AboutPreview (главная) = expert-preview.jpg (fill, aspect-square); /about hero = портрет
+  expert-about.jpg (901×1280, priority). expert.jpg добавлен для personJsonLd.image (M4).
+  expert-accent.jpg скопирован, но не размещён (нет подходящего малого слота). Проверено на
+  проде curl'ом (next/image-URL + 200 + alt); скрины не приложены — Playwright MCP в сессии отключён.
+- Файлы: `…/sections/AboutPreview.tsx`, `…/app/about/page.tsx`,
+  `public/images/{expert-about,expert-preview,expert,expert-accent}.jpg`,
+  `.claude/reports/REPORT_TASK-052_2026-06-06.md`, `.claude/tasks/SPRINT.md` (TASK-052 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: +4 изображения (~375 КБ) в git; без новых npm-зависимостей
+- Проблемы: скрины не приложены (Playwright MCP отключён) — верификация curl'ом.
+
 ## [TASK-022] Rate limiting /api/* в nginx — 2026-06-06
 - Что сделано: nginx limit_req для форм /api/* (без Arcjet). Зона api_forms по $binary_remote_addr,
   rate=10r/m, burst=5 nodelay, статус 429; GET /api/healthz исключён (exact location). Лимит только
