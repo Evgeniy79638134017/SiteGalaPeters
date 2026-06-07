@@ -2,25 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { motion, useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
 import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
 
-const stagger = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.15 } },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
-};
-
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
-
-  const Container = shouldReduceMotion ? "div" : motion.div;
-  const Item = shouldReduceMotion ? "div" : motion.div;
 
   return (
     <section className="relative overflow-hidden min-h-[70vh] lg:min-h-[90vh] flex items-center bg-text">
@@ -55,36 +42,20 @@ export function Hero() {
 
       {/* Контент поверх видео */}
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 md:py-24 lg:py-32 w-full">
-        <Container
-          {...(!shouldReduceMotion && {
-            variants: stagger,
-            initial: "hidden",
-            animate: "visible",
-          })}
-          className="max-w-2xl space-y-6 md:space-y-8"
-        >
-          <Item {...(!shouldReduceMotion && { variants: fadeUp })}>
-            <span className="inline-block font-handwritten text-xl md:text-2xl text-white bg-white/15 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full">
-              Продукт своего продукта
-            </span>
-          </Item>
+        <div className="max-w-2xl space-y-6 md:space-y-8">
+          <span className="inline-block font-handwritten text-xl md:text-2xl text-white bg-white/15 backdrop-blur-sm border border-white/20 px-4 py-1.5 rounded-full">
+            Продукт своего продукта
+          </span>
 
-          <Item {...(!shouldReduceMotion && { variants: fadeUp })}>
-            <h1 className="text-white drop-shadow-sm">Молодость доступна каждому</h1>
-          </Item>
+          <h1 className="text-white drop-shadow-sm">Молодость доступна каждому</h1>
 
-          <Item {...(!shouldReduceMotion && { variants: fadeUp })}>
-            <p className="text-white/90 text-lg md:text-xl leading-relaxed max-w-xl">
-              Мне 62 года. Зрение без очков. Энергии больше, чем в 40.
-              За 30 лет я создала систему, которая работает.
-              Три кита здоровья: биохимия, биомеханика, биоэнергетика.
-            </p>
-          </Item>
+          <p className="text-white/90 text-lg md:text-xl leading-relaxed max-w-xl">
+            Мне 62 года. Зрение без очков. Энергии больше, чем в 40.
+            За 30 лет я создала систему, которая работает.
+            Три кита здоровья: биохимия, биомеханика, биоэнергетика.
+          </p>
 
-          <Item
-            {...(!shouldReduceMotion && { variants: fadeUp })}
-            className="flex flex-col sm:flex-row gap-4"
-          >
+          <div className="flex flex-col sm:flex-row gap-4">
             <Link
               href="/quiz"
               onClick={() => trackEvent("quiz_cta_hero_clicked")}
@@ -101,8 +72,8 @@ export function Hero() {
             >
               Подписаться в Telegram
             </a>
-          </Item>
-        </Container>
+          </div>
+        </div>
       </div>
     </section>
   );
