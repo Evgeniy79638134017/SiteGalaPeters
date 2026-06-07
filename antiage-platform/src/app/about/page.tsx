@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Droplets, Moon, Activity, Apple, Brain } from "lucide-react";
 import { WaveDivider } from "@/components/shared/WaveDivider";
@@ -46,11 +47,24 @@ export default function AboutPage() {
             <span className="mx-2">›</span>
             <span className="text-text">Обо мне</span>
           </nav>
-          <AnimateOnScroll>
-            <h1 className="text-teal max-w-2xl">
-              Мой путь к молодости длиной в 30 лет
-            </h1>
-          </AnimateOnScroll>
+          <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <AnimateOnScroll>
+              <h1 className="text-teal">
+                Мой путь к молодости длиной в 30 лет
+              </h1>
+            </AnimateOnScroll>
+            <AnimateOnScroll direction="right">
+              <Image
+                src="/images/expert-about.jpg"
+                alt="Галина — эксперт по anti-age"
+                width={901}
+                height={1280}
+                sizes="(max-width: 768px) 100vw, 480px"
+                priority
+                className="rounded-3xl w-full h-auto max-w-sm mx-auto md:ml-auto shadow-sm"
+              />
+            </AnimateOnScroll>
+          </div>
         </div>
       </section>
 

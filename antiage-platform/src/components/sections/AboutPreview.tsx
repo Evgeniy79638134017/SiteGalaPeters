@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
 
@@ -6,13 +7,16 @@ export function AboutPreview() {
     <section className="bg-brand-bg py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Фото-placeholder */}
+          {/* Портрет Галины */}
           <AnimateOnScroll direction="left">
-            <div className="aspect-square rounded-3xl bg-linear-to-br from-brand-soft/50 to-teal-soft/20 flex items-center justify-center">
-              <div className="text-center space-y-3 text-text-muted/50">
-                <div className="w-20 h-20 rounded-full bg-brand-soft/60 mx-auto" />
-                <p className="text-sm">Фото эксперта</p>
-              </div>
+            <div className="relative aspect-square rounded-3xl overflow-hidden bg-brand-soft/30">
+              <Image
+                src="/images/expert-preview.jpg"
+                alt="Галина — эксперт по anti-age"
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover object-top"
+              />
             </div>
           </AnimateOnScroll>
           {/* Текст */}
