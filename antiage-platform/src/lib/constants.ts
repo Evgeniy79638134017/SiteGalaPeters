@@ -23,7 +23,7 @@ export const NAV_LINKS = [
 export const TRUST_BADGES = [
   { value: "30+", label: "лет опыта" },
   { value: "1000+", label: "благодарных людей" },
-  { value: "62", label: "года — без очков" },
+  { value: "63", label: "года — без очков" },
 ] as const;
 
 export const THREE_PILLARS = [

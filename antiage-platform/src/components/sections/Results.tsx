@@ -5,7 +5,7 @@ import { CountUp } from "@/components/shared/CountUp";
 const METRICS = [
   { end: 30, suffix: "+", label: "лет опыта" },
   { end: 1000, suffix: "+", label: "благодарных людей" },
-  { end: 62, suffix: "", label: "года — без очков" },
+  { end: 63, suffix: "", label: "года — без очков" },
 ];
 
 export function Results() {
