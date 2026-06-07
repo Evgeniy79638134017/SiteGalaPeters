@@ -13,7 +13,7 @@
 - [x] TASK-052: Реальные фото на сайт (about/preview/accent; назначения утверждены; …27 — ждёт уточнения). Промт: `.claude/prompts/PROMPT_052_real_photos.md`. Отчёт: `.claude/reports/REPORT_TASK-052_2026-06-06.md`.
 - [x] TASK-054: Реальные соцсети/Telegram (GalaProMolodost, galina.peters, @galinapeters, TikTok) + ORDER_URL. Промт: `.claude/prompts/PROMPT_054_socials.md`. Отчёт: `.claude/reports/REPORT_TASK-054_2026-06-06.md`.
 - [x] TASK-055: Возраст 62 → 63 (текущий — да; историческое «зрение в 62» — нет). Промт: `.claude/prompts/PROMPT_055_age_update.md`. Отчёт: `.claude/reports/REPORT_TASK-055_2026-06-07.md`.
-- [ ] TASK-053: Каталог 8 программ (структура+контент doksveta, ToV Галины; реф-код позже). Промт: `.claude/prompts/PROMPT_053_programs_catalog.md`. Зависит от TASK-054 (ORDER_URL).
+- [x] TASK-053: Каталог 8 программ (структура+контент doksveta, ToV Галины; реф-код позже). Промт: `.claude/prompts/PROMPT_053_programs_catalog.md`. Отчёт: `.claude/reports/REPORT_TASK-053_2026-06-07.md`. Зависело от TASK-054 (ORDER_URL).
 
 ### Вопросы для Vision Holder (SPRINT-3)
 
