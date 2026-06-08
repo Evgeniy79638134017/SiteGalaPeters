@@ -10,6 +10,7 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { AnimateOnScroll } from "@/components/shared/AnimateOnScroll";
 import { Disclaimer } from "@/components/shared/Disclaimer";
 import { ProducerInfo } from "@/components/programs/ProducerInfo";
+import { DownloadScheduleButton } from "@/components/programs/DownloadScheduleButton";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { ORDER_URL, TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 import { PROGRAM_SAFETY_NOTE, type HealthProgram } from "@/content/health-programs";
@@ -215,6 +216,9 @@ export function HealthProgramPage({ program }: { program: HealthProgram }) {
       <section className="bg-brand-cream py-16 md:py-20">
         <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
           <AnimateOnScroll><SectionHeading title="Программа по месяцам" /></AnimateOnScroll>
+          <div className="mt-6 flex justify-center">
+            <DownloadScheduleButton program={program} />
+          </div>
           <div className="mt-10 space-y-8">
             {program.stages.map((stage, i) => (
               <AnimateOnScroll key={i} delay={i * 0.05}>
