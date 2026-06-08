@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Send } from "lucide-react";
 import { NAV_LINKS, TELEGRAM_CHANNEL_URL } from "@/lib/constants";
@@ -26,13 +27,22 @@ export function Header() {
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 md:h-20 items-center justify-between">
-          {/* Лого */}
-          <Link href="/" className="flex-shrink-0 group">
-            <span className="font-heading text-xl md:text-2xl font-bold text-teal group-hover:text-teal-mid transition-colors">
-              AntiAge
-            </span>
-            <span className="hidden sm:block font-handwritten text-xs text-brand leading-tight">
-              молодость доступна каждому
+          {/* Лого: круглый портрет Галины + название */}
+          <Link href="/" className="flex-shrink-0 group flex items-center gap-2.5">
+            <Image
+              src="/images/expert-circle-hero.jpg"
+              alt="Галина — эксперт по anti-age"
+              width={44}
+              height={44}
+              className="w-11 h-11 rounded-full object-cover ring-2 ring-white shadow-sm"
+            />
+            <span className="flex flex-col leading-none">
+              <span className="font-heading text-xl md:text-2xl font-bold text-teal group-hover:text-teal-mid transition-colors">
+                AntiAge
+              </span>
+              <span className="hidden sm:block font-handwritten text-xs text-brand leading-tight mt-0.5">
+                молодость доступна каждому
+              </span>
             </span>
           </Link>
 
