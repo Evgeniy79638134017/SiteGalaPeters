@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { BLOG_POSTS, getBlogPost } from "@/content/blog-posts";
@@ -151,7 +152,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </nav>
 
         {/* Обложка */}
-        <div className="aspect-video rounded-2xl bg-brand-soft/30 mb-8" />
+        <div className="relative aspect-16/10 rounded-2xl overflow-hidden bg-brand-soft/30 mb-8">
+          <Image
+            src={post.coverImage}
+            alt={post.title}
+            fill
+            priority
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="object-cover"
+          />
+        </div>
 
         {/* Мета */}
         <div className="flex items-center gap-3 mb-4">

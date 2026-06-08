@@ -1,5 +1,6 @@
 export interface BlogPost {
   slug: string;
+  coverImage: string;
   title: string;
   excerpt: string;
   category: string;
@@ -28,6 +29,7 @@ export const BLOG_CATEGORIES = [
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "bady-vitaminy-kollagen-chto-rabotaet-posle-50",
+    coverImage: "/images/blog/bady-vitaminy-kollagen-chto-rabotaet-posle-50.jpg",
     title: "БАДы, витамины и коллаген — что реально работает после 50",
     excerpt:
       "90% витаминов из аптеки не усваиваются. За 30 лет я нашла то, что действительно работает. Мета-анализ 19 исследований подтверждает: гидролизованный коллаген улучшает кожу уже через 90 дней.",
@@ -162,6 +164,7 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "menopauza-posle-45-eto-perezagruzka",
+    coverImage: "/images/blog/menopauza-posle-45-eto-perezagruzka.jpg",
     title: "Менопауза после 45 — это не конец. Это перезагрузка",
     excerpt:
       "Крупнейшее исследование 20 882 женщин подтверждает: потеря памяти — 66,9%, усталость — 66,5%, бессонница — 59,6%. Я прошла через это и нашла выход без гормонов и антидепрессантов.",
@@ -298,6 +301,7 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "kak-ya-vernula-zrenie-v-62",
+    coverImage: "/images/blog/kak-ya-vernula-zrenie-v-62.jpg",
     title: "Как я вернула зрение в 62 года. Без очков.",
     excerpt:
       "Офтальмолог не поверил, что мне 62. Каротиноиды лютеин и зеаксантин формируют макулярный пигмент — природный «солнцезащитный фильтр» для сетчатки. Вот мой протокол.",
@@ -407,6 +411,7 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "energiya-na-ves-den-5-utrennikh-shagov",
+    coverImage: "/images/blog/energiya-na-ves-den-5-utrennikh-shagov.jpg",
     title: "Энергия на весь день — 5 утренних шагов",
     excerpt:
       "Я просыпаюсь в 6 утра без будильника. Мне 62. Наука подтверждает: обезвоживание снижает когнитивные функции, а ограниченное по времени питание улучшает энергию и настроение.",
@@ -524,6 +529,7 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "tri-kita-zdorovya-sistema-30-let",
+    coverImage: "/images/blog/tri-kita-zdorovya-sistema-30-let.jpg",
     title: "Три кита здоровья — система, которая изменила 30 лет моей жизни",
     excerpt:
       "Биохимия, биомеханика, биоэнергетика. Порядок важен. Исследование Йельского университета доказало: позитивное восприятие возраста = +7,5 лет жизни. Больше, чем низкое давление и спорт.",
@@ -658,6 +664,7 @@ export const BLOG_POSTS: BlogPost[] = [
 
   {
     slug: "ot-ya-uzhe-staraya-k-ya-tolko-nachinayu",
+    coverImage: "/images/blog/ot-ya-uzhe-staraya-k-ya-tolko-nachinayu.jpg",
     title: "От «я уже старая» к «я только начинаю» — психология молодости",
     excerpt:
       "Когда я перестала бороться со старостью, я помолодела на 10 лет. Йельское исследование: позитивное восприятие возраста = +7,5 лет. Благодарность активирует медиальную префронтальную кору.",
