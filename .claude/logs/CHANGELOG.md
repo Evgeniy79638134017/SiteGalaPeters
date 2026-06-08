@@ -19,6 +19,24 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-057] Кнопка «Скачать таблицу приёма» → JPG — 2026-06-08
+- Что сделано: client-компонент DownloadScheduleButton на странице программы (под «Программа
+  по месяцам»). Клик → off-screen печатная таблица расписания (период + комплексы с дозами 1:1
+  из health-programs.ts) → html2canvas (динамический импорт) → canvas.toDataURL("image/jpeg",0.92)
+  → <a download> = <slug>-raspisanie.jpg. Палитра сайта (teal-шапка, чередование строк) задана
+  инлайн-HEX, чтобы html2canvas не падал на oklch() Tailwind v4. В картинке — БАД-дисклеймер +
+  gpeters.ru. Проверено в реальном Chromium на проде: валидный JPEG 2200×1916 (~315 КБ), читаем.
+- Файлы: `src/components/programs/DownloadScheduleButton.tsx` (новый),
+  `src/components/programs/HealthProgramPage.tsx`, `package.json`/`package-lock.json`,
+  `.claude/reports/REPORT_TASK-057_2026-06-08.md` (+asset), `.claude/tasks/SPRINT.md` (TASK-057 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: +html2canvas@1.4.1 (~48 КБ gzip) в отдельном ДИНАМИЧЕСКОМ чанке (грузится по клику),
+  основной бандл страницы не вырос.
+- Проблемы: расписание отрисовано по структуре stages (по месяцам), а не УТРО/ОБЕД/УЖИН — по Visual
+  Guidance; дозировки 1:1, ждут юр.ревизии.
+
 ## [TASK-060] Круглый портрет Галины в шапке — 2026-06-08
 - Что сделано: в Header лого-ссылка стала flex-строкой — круглый аватар expert-circle-hero.jpg
   (44px, rounded-full object-cover + ring, alt) слева от «AntiAge / молодость доступна каждому»,
