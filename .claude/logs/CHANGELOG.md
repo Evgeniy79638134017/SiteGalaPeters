@@ -19,6 +19,20 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-060] Круглый портрет Галины в шапке — 2026-06-08
+- Что сделано: в Header лого-ссылка стала flex-строкой — круглый аватар expert-circle-hero.jpg
+  (44px, rounded-full object-cover + ring, alt) слева от «AntiAge / молодость доступна каждому»,
+  всё в одной ссылке на «/». Высота шапки не изменилась (desktop 80px, mobile 64px); на мобайле
+  подпись скрыта (<sm), аватар остаётся. Навигация/футер/мобильное меню не трогались. Прод
+  проверен на desktop и mobile, скрины приложены.
+- Файлы: `src/components/layout/Header.tsx`,
+  `.claude/reports/REPORT_TASK-060_2026-06-08.md` (+assets), `.claude/tasks/SPRINT.md` (TASK-060 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: 0 (фото уже в репо, без зависимостей)
+- Проблемы: нет.
+
 ## [TASK-056b] Фикс кружков-портретов на программах — 2026-06-08
 - Что сделано: hero-кружок → expert-circle-hero.jpg, кружок цитаты → expert-circle-quote.jpg
   (квадратные 600×600, лицо по центру). `<Image>` переведён с fill на width=height+object-cover
