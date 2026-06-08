@@ -19,6 +19,21 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-058] Обложки статей блога — 2026-06-08
+- Что сделано: в interface BlogPost добавлено coverImage: string, у всех 6 статей проставлен
+  /images/blog/<slug>.jpg. Пустые заглушки aspect-16/10 заменены на next/image (fill+object-cover
+  +sizes) в BlogPreview (главная), /blog и в шапке статьи /blog/[slug] (контейнер → aspect-16/10,
+  priority). alt = заголовок. 6 оптимизированных jpg закоммичены. Тексты статей не менялись.
+  Прод: /blog — 6 обложек загружены, главная — 3, статья — обложка в hero; raw ×6 → 200.
+- Файлы: `src/content/blog-posts.ts`, `src/components/sections/BlogPreview.tsx`,
+  `src/app/blog/page.tsx`, `src/app/blog/[slug]/page.tsx`, `public/images/blog/*.jpg` (6),
+  `.claude/reports/REPORT_TASK-058_2026-06-08.md` (+asset), `.claude/tasks/SPRINT.md` (TASK-058 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: +6 jpg (~0.58 МБ), без новых зависимостей
+- Проблемы: нет.
+
 ## [TASK-060b] Перекадрирование hero-аватара (лицо левее) — 2026-06-08
 - Что сделано: обновлён бинарник `public/images/expert-circle-hero.jpg` (новый кроп от Cowork,
   42221 → 41511 байт). Кода/компонентов не трогали — только рекоммит файла для пересборки Vercel.

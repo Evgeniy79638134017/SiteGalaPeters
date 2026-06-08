@@ -12,7 +12,8 @@
 - [x] TASK-056: Круглые фото Галины на программах (hero + цитата). Промт: `.claude/prompts/PROMPT_056_program_circles.md`. Отчёт: `.claude/reports/REPORT_TASK-056_2026-06-08.md`.
 - [x] TASK-056b: Фикс кружков (квадратные фото, без обрезки лица, крупнее, безусловный рендер). Промт: `.claude/prompts/PROMPT_056b_fix_circles.md`. Отчёт: `.claude/reports/REPORT_TASK-056b_2026-06-08.md`.
 - [x] TASK-057: Кнопка «Скачать таблицу приёма» → JPG расписания (html2canvas). Промт: `.claude/prompts/PROMPT_057_download_table.md`. Отчёт: `.claude/reports/REPORT_TASK-057_2026-06-08.md`.
-- [ ] TASK-058: AI-обложки статей блога (ждёт: файлы из Downloads → ContentFiles/web_ready/blog-covers/, затем Cowork отберёт+оптимизирует, потом промт).
+- [ ] TASK-061: Реф-ссылка agenyz Галины в ORDER_URL (bonus=001-078135). Промт: `.claude/prompts/PROMPT_061_order_url.md`.
+- [x] TASK-058: AI-обложки статей блога (6 шт. готовы в public/images/blog/, оптимизированы Cowork). Промт: `.claude/prompts/PROMPT_058_blog_covers.md`. Отчёт: `.claude/reports/REPORT_TASK-058_2026-06-08.md`.
 
 - [x] TASK-022: Rate limiting /api/* в nginx (H1; решение PM — без Arcjet). Промт: `.claude/prompts/PROMPT_022_rate_limit.md`. Отчёт: `.claude/reports/REPORT_TASK-022_2026-06-06.md`.
 
