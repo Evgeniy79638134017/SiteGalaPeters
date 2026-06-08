@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   Heart, Zap, Brain, Flame, Bone, Bug, Apple, Shield,
@@ -57,7 +58,20 @@ export function HealthProgramPage({ program }: { program: HealthProgram }) {
             <span className="mx-2">›</span>
             <span className="text-text">{program.shortTitle}</span>
           </nav>
-          <AnimateOnScroll>
+          <div className="md:flex md:items-start md:gap-10">
+            {/* Круглый портрет Галины (как на доксвете) */}
+            <AnimateOnScroll direction="right" className="shrink-0 mb-6 md:mb-0 md:order-2">
+              <div className="relative w-32 h-32 md:w-36 md:h-36 mx-auto rounded-full overflow-hidden ring-4 ring-white shadow-md">
+                <Image
+                  src="/images/expert-accent.jpg"
+                  alt="Галина — эксперт по anti-age"
+                  fill
+                  sizes="144px"
+                  className="object-cover"
+                />
+              </div>
+            </AnimateOnScroll>
+            <AnimateOnScroll className="md:flex-1 md:order-1">
             <div className="flex items-center gap-4 mb-5">
               <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center shadow-sm">
                 <Icon className="w-8 h-8 text-teal-mid" strokeWidth={1.5} />
@@ -79,7 +93,8 @@ export function HealthProgramPage({ program }: { program: HealthProgram }) {
               <span>Продукт своего продукта</span>
             </div>
             <div className="mt-8"><OrderButtons /></div>
-          </AnimateOnScroll>
+            </AnimateOnScroll>
+          </div>
         </div>
       </section>
 
@@ -88,8 +103,17 @@ export function HealthProgramPage({ program }: { program: HealthProgram }) {
         <>
           <WaveDivider fromColor="var(--color-brand-cream)" toColor="var(--color-brand-bg)" variant={1} />
           <section className="bg-brand-bg py-14 md:py-16">
-            <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-              <AnimateOnScroll>
+            <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+              <AnimateOnScroll className="flex flex-col sm:flex-row items-center gap-5 sm:gap-7 text-center sm:text-left">
+                <div className="shrink-0 relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-4 ring-white shadow-md">
+                  <Image
+                    src="/images/expert-preview.jpg"
+                    alt="Галина — эксперт по anti-age"
+                    fill
+                    sizes="96px"
+                    className="object-cover object-top"
+                  />
+                </div>
                 <blockquote className="font-handwritten text-2xl md:text-3xl text-brand-dark leading-snug italic">
                   &ldquo;{program.mainLaw}&rdquo;
                 </blockquote>
