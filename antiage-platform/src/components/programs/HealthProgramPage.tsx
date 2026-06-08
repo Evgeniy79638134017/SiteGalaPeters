@@ -59,18 +59,18 @@ export function HealthProgramPage({ program }: { program: HealthProgram }) {
             <span className="text-text">{program.shortTitle}</span>
           </nav>
           <div className="md:flex md:items-start md:gap-10">
-            {/* Круглый портрет Галины (как на доксвете) */}
-            <AnimateOnScroll direction="right" className="shrink-0 mb-6 md:mb-0 md:order-2">
-              <div className="relative w-32 h-32 md:w-36 md:h-36 mx-auto rounded-full overflow-hidden ring-4 ring-white shadow-md">
-                <Image
-                  src="/images/expert-accent.jpg"
-                  alt="Галина — эксперт по anti-age"
-                  fill
-                  sizes="144px"
-                  className="object-cover"
-                />
-              </div>
-            </AnimateOnScroll>
+            {/* Круглый портрет Галины (квадратный источник 600×600 → лицо по центру,
+                рендер безусловный, без анимации-обёртки) */}
+            <div className="shrink-0 mb-6 md:mb-0 md:order-2 mx-auto md:mx-0">
+              <Image
+                src="/images/expert-circle-hero.jpg"
+                alt="Галина — эксперт по anti-age"
+                width={140}
+                height={140}
+                priority
+                className="w-35 h-35 rounded-full object-cover ring-4 ring-white shadow-md"
+              />
+            </div>
             <AnimateOnScroll className="md:flex-1 md:order-1">
             <div className="flex items-center gap-4 mb-5">
               <div className="w-16 h-16 rounded-2xl bg-white flex items-center justify-center shadow-sm">
@@ -105,15 +105,13 @@ export function HealthProgramPage({ program }: { program: HealthProgram }) {
           <section className="bg-brand-bg py-14 md:py-16">
             <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
               <AnimateOnScroll className="flex flex-col sm:flex-row items-center gap-5 sm:gap-7 text-center sm:text-left">
-                <div className="shrink-0 relative w-20 h-20 md:w-24 md:h-24 rounded-full overflow-hidden ring-4 ring-white shadow-md">
-                  <Image
-                    src="/images/expert-preview.jpg"
-                    alt="Галина — эксперт по anti-age"
-                    fill
-                    sizes="96px"
-                    className="object-cover object-top"
-                  />
-                </div>
+                <Image
+                  src="/images/expert-circle-quote.jpg"
+                  alt="Галина — эксперт по anti-age"
+                  width={112}
+                  height={112}
+                  className="shrink-0 w-28 h-28 rounded-full object-cover ring-4 ring-white shadow-md"
+                />
                 <blockquote className="font-handwritten text-2xl md:text-3xl text-brand-dark leading-snug italic">
                   &ldquo;{program.mainLaw}&rdquo;
                 </blockquote>
