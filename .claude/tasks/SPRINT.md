@@ -6,6 +6,11 @@
 
 ### Задачи (черновик, промты по мере готовности решений)
 
+- [ ] TASK-059: 9-я программа «Клеточное омоложение» (контент Галины, флагман). Промт: `.claude/prompts/PROMPT_059_program_omolozhenie.md`.
+- [x] TASK-056: Круглые фото Галины на программах (hero + цитата). Промт: `.claude/prompts/PROMPT_056_program_circles.md`. Отчёт: `.claude/reports/REPORT_TASK-056_2026-06-08.md`.
+- [ ] TASK-057: Кнопка «Скачать таблицу приёма» → JPG расписания (html2canvas). Промт: `.claude/prompts/PROMPT_057_download_table.md`.
+- [ ] TASK-058: AI-обложки статей блога (ждёт: файлы из Downloads → ContentFiles/web_ready/blog-covers/, затем Cowork отберёт+оптимизирует, потом промт).
+
 - [x] TASK-022: Rate limiting /api/* в nginx (H1; решение PM — без Arcjet). Промт: `.claude/prompts/PROMPT_022_rate_limit.md`. Отчёт: `.claude/reports/REPORT_TASK-022_2026-06-06.md`.
 
 - [x] TASK-050 (2026-06-06, Cowork): медиа готовы в ContentFiles/web_ready/ — hero-bg.mp4 (9.3 МБ, 720p/25fps, без звука), 4 постера-кандидата, OG-кандидат 1200x630, 6 фото в jpg+webp (≤1600px). CR3 отложен (нет RAW-конвертера; нужен JPG-экспорт от владельца).
