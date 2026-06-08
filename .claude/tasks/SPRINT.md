@@ -9,6 +9,7 @@
 - [ ] TASK-060: Круглый портрет Галины в шапке слева от «AntiAge» (как у доктора Светы). Промт: `.claude/prompts/PROMPT_060_header_avatar.md`.
 - [x] TASK-059: 9-я программа «Клеточное омоложение» (контент Галины, флагман). Промт: `.claude/prompts/PROMPT_059_program_omolozhenie.md`. Отчёт: `.claude/reports/REPORT_TASK-059_2026-06-08.md`.
 - [x] TASK-056: Круглые фото Галины на программах (hero + цитата). Промт: `.claude/prompts/PROMPT_056_program_circles.md`. Отчёт: `.claude/reports/REPORT_TASK-056_2026-06-08.md`.
+- [x] TASK-056b: Фикс кружков (квадратные фото, без обрезки лица, крупнее, безусловный рендер). Промт: `.claude/prompts/PROMPT_056b_fix_circles.md`. Отчёт: `.claude/reports/REPORT_TASK-056b_2026-06-08.md`.
 - [ ] TASK-057: Кнопка «Скачать таблицу приёма» → JPG расписания (html2canvas). Промт: `.claude/prompts/PROMPT_057_download_table.md`.
 - [ ] TASK-058: AI-обложки статей блога (ждёт: файлы из Downloads → ContentFiles/web_ready/blog-covers/, затем Cowork отберёт+оптимизирует, потом промт).
 
