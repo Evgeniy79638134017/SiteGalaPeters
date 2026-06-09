@@ -19,6 +19,22 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-075] Hero-видео Vercel-first + фолбэк на Москву — 2026-06-09
+- Что сделано: hero-bg.mp4 добавлен в public/media (раздаёт Vercel edge). Hero пробует
+  VIDEO_CDN_URL (gala-antiage.vercel.app/media/...) первым; если за 2.5с нет canplay (readyState<3)
+  или onError → переключает src на московский /media/hero-bg.mp4 (key-remount → load+autoplay).
+  Заграница → ближний Vercel edge; РФ (Vercel блок) → таймаут/ошибка → Москва (как было). Без
+  crossOrigin. Постер/lazy/reduced-motion/saveData (TASK-073) не менялись. Прод (Playwright):
+  Vercel-first src=vercel readyState=4; фолбэк (имитация error) → src=Москва readyState=4.
+- Файлы: `src/lib/constants.ts` (+VIDEO_CDN_URL/VIDEO_ORIGIN_URL), `src/components/sections/Hero.tsx`,
+  `public/media/hero-bg.mp4` (новый), `.claude/reports/REPORT_TASK-075_2026-06-09.md` (+asset),
+  `.claude/tasks/SPRINT.md` (TASK-075 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: +9.5 МБ (public/media/hero-bg.mp4 в git); без новых npm-зависимостей.
+- Проблемы: видео в git (+9.5МБ) — при росте зарубежной аудитории вынести в Vercel Blob/GeoDNS.
+
 ## [TASK-061] Реф-ссылка agenyz в ORDER_URL — 2026-06-09
 - Что сделано: ORDER_URL в constants.ts заменён с временного TG-канала на реф-ссылку Галины
   https://agenyz.ru/registration?bonus=001-078135&language=ru (TODO удалён). Кнопки «Заказать
