@@ -19,6 +19,22 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-077] Москва по умолчанию, Vercel — только зарубежным (по таймзоне) — 2026-06-09
+- Что сделано: фикс регрессии TASK-075 (Vercel в РФ заблокирован, а старт был с Vercel → РФ-юзеры
+  ждали 2.5с/висли). Начальный источник теперь по `Intl...timeZone`: РФ/СНГ таймзоны (Set:
+  Europe/Moscow…Asia/Anadyr + СНГ) → сразу Москва (VIDEO_ORIGIN_URL, без запроса к Vercel и без
+  таймаута); прочие → Vercel-first с фолбэком на Москву (TASK-075). Неопределимая таймзона → Москва.
+  Постер/lazy/reduced-motion/saveData/3g-фикс/фолбэк — не тронуты. Прод (Playwright): реальная
+  таймзона браузера Asia/Yakutsk → currentSrc=/media сразу, vercelRequested=false, readyState=4;
+  имитация Europe/Berlin → vercelRequested=true (Vercel-first), затем фолбэк на Москву, играет.
+- Файлы: `src/components/sections/Hero.tsx`, `.claude/reports/REPORT_TASK-077_2026-06-09.md`,
+  `.claude/tasks/SPRINT.md` (TASK-077 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: 0
+- Проблемы: нет (таймзона ≠ 100% гео, но надёжнее navigator.language и решает главный РФ-кейс).
+
 ## [TASK-076] Видео не блокируется на «3g»/VPN — 2026-06-09
 - Что сделано: в Hero.tsx убран "3g" из slowNet (`["slow-2g","2g","3g"]` → `["slow-2g","2g"]`).
   Chrome/VPN часто рапортует effectiveType="3g" на нормальных каналах → раньше showVideo=false и
