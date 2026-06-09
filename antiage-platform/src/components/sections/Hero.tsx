@@ -3,27 +3,70 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
 
+// Минимальный тип Network Information API (нет в стандартных lib.dom типах).
+interface NetworkInformationLite {
+  saveData?: boolean;
+  effectiveType?: string;
+  addEventListener?: (type: "change", listener: () => void) => void;
+  removeEventListener?: (type: "change", listener: () => void) => void;
+}
+function getConnection(): NetworkInformationLite | undefined {
+  return (navigator as Navigator & { connection?: NetworkInformationLite }).connection;
+}
+
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
+  // Видео монтируется ТОЛЬКО на клиенте после первого рендера → не блокирует LCP.
+  const [showVideo, setShowVideo] = useState(false);
+
+  useEffect(() => {
+    const mql = window.matchMedia("(min-width: 768px)");
+    const evaluate = () => {
+      if (shouldReduceMotion) {
+        setShowVideo(false);
+        return;
+      }
+      const conn = getConnection();
+      // Узкий экран (мобайл), экономия трафика или медленная сеть → только постер, без <video>.
+      const slowNet =
+        !!conn &&
+        (conn.saveData === true ||
+          ["slow-2g", "2g", "3g"].includes(conn.effectiveType ?? ""));
+      setShowVideo(mql.matches && !slowNet);
+    };
+
+    // Первая оценка — после первого кадра (rAF), а не синхронно в эффекте: видео не блокирует LCP.
+    const raf = requestAnimationFrame(evaluate);
+    mql.addEventListener("change", evaluate);
+    const conn = getConnection();
+    conn?.addEventListener?.("change", evaluate);
+    return () => {
+      cancelAnimationFrame(raf);
+      mql.removeEventListener("change", evaluate);
+      conn?.removeEventListener?.("change", evaluate);
+    };
+  }, [shouldReduceMotion]);
 
   return (
     <section className="relative overflow-hidden min-h-[70vh] lg:min-h-[90vh] flex items-center bg-text">
-      {/* Фоновый медиа-слой: видео (или статичный постер при prefers-reduced-motion).
-          Видео декоративное → aria-hidden; постер виден до загрузки видео. */}
-      {shouldReduceMotion ? (
-        <Image
-          src="/images/hero-poster.jpg"
-          alt=""
-          aria-hidden="true"
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-      ) : (
+      {/* База — статичный постер (мгновенно, это и есть LCP-кадр). Декоративный → aria-hidden. */}
+      <Image
+        src="/images/hero-poster.jpg"
+        alt=""
+        aria-hidden="true"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover object-center"
+      />
+
+      {/* Видео поверх постера — только десктоп + нормальная сеть, монтируется после первого
+          рендера (не грузится зря на мобильных/медленных). Кадр совпадает с постером → без «прыжка». */}
+      {showVideo && (
         <video
           className="absolute inset-0 h-full w-full object-cover object-center"
           src="/media/hero-bg.mp4"
