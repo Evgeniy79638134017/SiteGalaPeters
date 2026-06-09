@@ -19,6 +19,16 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-070] Perf baseline «до» (SPRINT-4, Вариант A) — 2026-06-09
+- Что сделано: зафиксированы CLI-метрики «до» оптимизаций в `.claude/reports/PERF_BASELINE_2026-06-09.md`
+  (curl, с локальной РФ-машины, без изменений сервера/кода). Главное: страницы HTTP/1.1, gzip есть
+  (от Vercel), brotli нет, HTML не кэшируется на Nginx (max-age=0, must-revalidate); видео hero-bg.mp4
+  = 9.07 МБ, HTTP/1.1, отдаётся из Москвы без CDN (Cache-Control 30 дней + Accept-Ranges уже ок).
+  Внешние замеры (PageSpeed/WebPageTest ЕС+РФ) — за владельцем/PM (плейсхолдеры в отчёте).
+- Файлы: `.claude/reports/PERF_BASELINE_2026-06-09.md`, `.claude/tasks/SPRINT.md` (TASK-070 → [x]).
+- Сборка/линт/типы: N/A (только измерение, кода не трогали).
+- Дельта размера: 0.
+
 ## [TASK-058] Обложки статей блога — 2026-06-08
 - Что сделано: в interface BlogPost добавлено coverImage: string, у всех 6 статей проставлен
   /images/blog/<slug>.jpg. Пустые заглушки aspect-16/10 заменены на next/image (fill+object-cover
