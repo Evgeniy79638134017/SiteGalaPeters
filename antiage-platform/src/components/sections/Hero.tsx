@@ -21,11 +21,35 @@ function getConnection(): NetworkInformationLite | undefined {
   return (navigator as Navigator & { connection?: NetworkInformationLite }).connection;
 }
 
+// РФ/СНГ часовые пояса (TASK-077). Для них стартуем сразу с Москвы — Vercel в РФ заблокирован,
+// и Vercel-first давал штраф 2.5с/«висит». Зарубежные → Vercel-first с фолбэком на Москву.
+const RU_LIKE_TIMEZONES = new Set([
+  "Europe/Moscow", "Europe/Kaliningrad", "Europe/Samara", "Europe/Volgograd",
+  "Europe/Astrakhan", "Europe/Saratov", "Europe/Ulyanovsk", "Europe/Kirov",
+  "Asia/Yekaterinburg", "Asia/Omsk", "Asia/Novosibirsk", "Asia/Barnaul", "Asia/Tomsk",
+  "Asia/Novokuznetsk", "Asia/Krasnoyarsk", "Asia/Irkutsk", "Asia/Chita", "Asia/Yakutsk",
+  "Asia/Khandyga", "Asia/Vladivostok", "Asia/Ust-Nera", "Asia/Magadan", "Asia/Sakhalin",
+  "Asia/Srednekolymsk", "Asia/Kamchatka", "Asia/Anadyr",
+  // СНГ
+  "Asia/Almaty", "Asia/Tashkent", "Europe/Minsk", "Asia/Tbilisi", "Asia/Yerevan", "Asia/Baku",
+]);
+
+// true → стартуем с Москвы. Если таймзону не определить — тоже Москва (безопасный дефолт).
+function isRuLikeTimeZone(): boolean {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (!tz) return true;
+    return RU_LIKE_TIMEZONES.has(tz);
+  } catch {
+    return true;
+  }
+}
+
 export function Hero() {
   const shouldReduceMotion = useReducedMotion();
   // Видео монтируется ТОЛЬКО на клиенте после первого рендера → не блокирует LCP.
   const [showVideo, setShowVideo] = useState(false);
-  // Источник видео: начинаем с Vercel (CDN), при ошибке/таймауте → Москва (origin).
+  // Источник видео: РФ/СНГ — сразу Москва (origin); зарубеж — Vercel (CDN) с фолбэком на Москву.
   const [videoSrc, setVideoSrc] = useState<string | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const switchedRef = useRef(false); // гард от повторного переключения
@@ -67,8 +91,12 @@ export function Hero() {
       const show = mql.matches && !slowNet;
       setShowVideo(show);
       if (show) {
-        // Стартуем с Vercel; если уже фолбэкнули на Москву — источник не сбрасываем.
-        if (!switchedRef.current) setVideoSrc(VIDEO_CDN_URL);
+        // РФ/СНГ → сразу Москва (без обращения к заблокированному Vercel и без таймаута).
+        // Зарубеж → Vercel-first, при таймауте/ошибке фолбэк на Москву (TASK-075).
+        // Если уже фолбэкнули на Москву — источник не сбрасываем.
+        if (!switchedRef.current) {
+          setVideoSrc(isRuLikeTimeZone() ? VIDEO_ORIGIN_URL : VIDEO_CDN_URL);
+        }
       } else {
         setVideoSrc(null);
         switchedRef.current = false;
