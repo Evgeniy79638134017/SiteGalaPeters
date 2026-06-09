@@ -9,7 +9,7 @@
 
 - [x] TASK-070: Замер «до» (baseline) — curl-метрики страниц и видео. Промт: `.claude/prompts/PROMPT_070_perf_baseline.md`. Эталон: `.claude/reports/PERF_BASELINE_2026-06-09.md`.
 - [x] TASK-071: Nginx кэш + сжатие + HTTP/2 (НЕ кэшировать /api и /media). Промт: `.claude/prompts/PROMPT_071_nginx_cache.md`. Отчёт: `.claude/reports/REPORT_TASK-071_2026-06-09.md`.
-- [ ] TASK-073: Ленивое hero-видео (постер на мобайл/медленных, не блокирует LCP). Промт: `.claude/prompts/PROMPT_073_lazy_video.md`.
+- [x] TASK-073: Ленивое hero-видео (постер на мобайл/медленных, не блокирует LCP). Промт: `.claude/prompts/PROMPT_073_lazy_video.md`. Отчёт: `.claude/reports/REPORT_TASK-073_2026-06-09.md`.
 - [ ] TASK-072: Видео на Gcore CDN (CNAME, /media — резерв). ПРЕДУСЛОВИЕ: аккаунт Gcore от владельца. Промт: `.claude/prompts/PROMPT_072_video_cdn.md`.
 
 ### Предусловия от владельца

@@ -19,6 +19,22 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-073] Ленивое hero-видео — 2026-06-09
+- Что сделано: постер (<Image priority>) — всегда база/LCP; <video> монтируется только на клиенте
+  после первого кадра (rAF) и только при вьюпорте ≥768px и не-saveData/не-2g/3g сети. Mobile и
+  медленные/data-saver → постер без запроса hero-bg.mp4; desktop с нормальной сетью → видео без
+  блокировки LCP. prefers-reduced-motion — постер (как было). Тексты/CTA/композиция не менялись,
+  кадр постера = старт видео (без «прыжка»). setState вынесен из тела useEffect (rAF/колбэки) —
+  чисто по react-hooks/set-state-in-effect. Прод проверен Playwright (desktop video readyState=4,
+  mobile — нет <video>/нет mp4-запроса).
+- Файлы: `src/components/sections/Hero.tsx`,
+  `.claude/reports/REPORT_TASK-073_2026-06-09.md` (+assets), `.claude/tasks/SPRINT.md` (TASK-073 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: ~0 (без новых зависимостей)
+- Проблемы: нет.
+
 ## [TASK-071] Nginx кэш + сжатие + HTTP/2 — 2026-06-09
 - Что сделано: на московском Nginx включены HTTP/2 (listen ... http2; ALPN h2 подтверждён),
   расширенный gzip (css/js/json/svg; brotli недоступен в стоковом nginx — обосновано),
