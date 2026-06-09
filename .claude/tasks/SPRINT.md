@@ -21,6 +21,7 @@
 - [x] TASK-076: ФИКС — видео не монтируется на «3g»/VPN (убрать 3g из slowNet); корень «видео не грузится за рубежом». Промт: `.claude/prompts/PROMPT_076_relax_net_gate.md`. Отчёт: `.claude/reports/REPORT_TASK-076_2026-06-09.md`.
 - [x] TASK-077: ФИКС РФ — Москва по умолчанию, Vercel только для зарубежных таймзон (Vercel-first ломал РФ). Промт: `.claude/prompts/PROMPT_077_moscow_first_geo.md`. Отчёт: `.claude/reports/REPORT_TASK-077_2026-06-09.md`.
 - [x] TASK-041: Гигиена git — `/ContentFiles/` в .gitignore + `git rm --cached`, закоммичен координационный слой `.claude/` (public не затронут). Промт: `.claude/prompts/PROMPT_041_repo_hygiene.md`. Отчёт: `.claude/reports/REPORT_TASK-041_2026-06-09.md`.
+- [x] TASK-040: Синхронизация README/доков с фактом (Next.js 16.2; разделены «Реализовано»/«Roadmap»; гибрид RU-VPS+Vercel). Промт: `.claude/prompts/PROMPT_040_docs_sync.md`. Отчёт: `.claude/reports/REPORT_TASK-040_2026-06-09.md`.
 
 ### Отложено (по решению)
 - [РЕШЕНО 09.06] Производительность видео: Вариант A реализован (070 baseline, 071 nginx-кэш/HTTP2/gzip, 073 lazy-video — на проде). CDN-видео ПАРКОВАНО: Gcore free обрывал pull большого файла (504, диагностика TASK-074 — причина на стороне Gcore), Object Storage платный — для декоративного фона не оправдан. Видео отдаётся с /media. Возврат к CDN/HLS — при росте зарубежной аудитории (см. VIDEO_SEGMENTATION_RESEARCH.md, PERF_ARCHITECTURE_PLAN.md).

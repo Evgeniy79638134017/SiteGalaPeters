@@ -1,3 +1,81 @@
+# AntiAge — Инструкция для Claude (корневая)
+
+> Этот файл читают ВСЕ агенты: Cowork (Claude Desktop) и Claude в VS Code.
+> Часть I — координационный слой (двух-Claude workflow). Часть II — «мозг проекта v3»
+> (домен, аудитория, дизайн, контент-стратегия). Актуальный стек/архитектура —
+> `.claude/context/ARCHITECTURE.md` и `IMPLEMENTATION_PLAN.md` (Ред. 3); в части II местами
+> устаревшие данные (напр. «Next.js 15» — по факту 16.2), их синхронизация — TASK-040.
+
+---
+
+# ЧАСТЬ I — Координационный слой
+
+## Роли
+
+| Кто | Где | Что делает | Чего НЕ делает |
+|-----|-----|-----------|----------------|
+| **Cowork (Архитектор/PM)** | Claude Desktop | Планирует, приоритизирует, пишет промты по 6-компонентной формуле, верифицирует отчёты | Не пишет код, не решает архитектуру за владельца |
+| **Claude в VS Code (Исполнитель)** | VS Code | Берёт задачу из `.claude/tasks/SPRINT.md`, пишет код, гоняет gate'ы, пишет отчёт + CHANGELOG | Не меняет архитектуру/схему БД сам, не редактирует BACKLOG |
+| **Владелец (Vision Holder)** | Оба | Утверждает план, копирует промт, принимает результат | Не делает машинную работу — она уходит в промт |
+
+Канал связи между Cowork и VS Code — **git и файлы в `.claude/`**, а не пересказ человеком.
+
+## Правила для Claude в VS Code
+
+### Перед стартом:
+1. Прочитай этот `CLAUDE.md` (обе части).
+2. `.claude/tasks/SPRINT.md` — текущий спринт, бери первую `[ ]`.
+3. `.claude/context/ARCHITECTURE.md` — архитектура и инварианты.
+
+### Код:
+1. Один промт = одна задача. cwd для команд — `antiage-platform/`.
+2. Никаких хардкод-секретов — только ENV.
+3. TypeScript strict, без `any`. Не игнорировать ошибки типов/линта.
+4. Точка входа Prisma — `src/lib/db.ts` (singleton), без россыпи клиентов.
+5. ПДн граждан РФ — только в РФ-БД (152-ФЗ); логика форм — в API на RU-VPS, не в server actions Vercel.
+6. Комментарии и UI-тексты — на русском; имена переменных/файлов/коммитов — на английском.
+7. Новая зависимость — точная версия (без `^`/`~`), фиксация дельты размера в CHANGELOG.
+
+### После задачи:
+1. `npm run build` (в `antiage-platform/`) — без ошибок.
+2. `npm run lint` и `npx tsc --noEmit` — зелёные.
+3. Запись в `.claude/logs/CHANGELOG.md` по шаблону.
+4. Статус в `.claude/tasks/SPRINT.md` → `[x]`.
+5. Отчёт `.claude/reports/REPORT_TASK-NNN_YYYY-MM-DD.md` по `_TEMPLATE.md`.
+6. Архитектурный вопрос → `.claude/tasks/BACKLOG.md`, тег `[ВОПРОС]`.
+
+### ЗАПРЕЩЕНО:
+- Менять архитектуру/схему БД без явного блока миграции в промте и подтверждения Vision Holder.
+- Коммитить секреты, артефакты сборки, зависимости, тяжёлые исходники (ContentFiles/, .CR3).
+- Ставить пакеты не из `package.json`. Удалять/переписывать чужой код без указания в задаче.
+
+## QA-gate'ы (задача принимается только после)
+1. `npm run build` — без ошибок.
+2. `npm run lint` — зелёный.
+3. `npx tsc --noEmit` — без ошибок.
+4. Дельта размера зафиксирована в CHANGELOG.
+5. Если тронута БД — миграция + согласия/доступы по чек-листу (152-ФЗ).
+6. Превью-деплой (Vercel) зелёный.
+
+## Reports workflow
+Отчёт 30–80 строк по `_TEMPLATE.md`; поле «Следующий шаг» обязательно; статусы Done/Partial/Blocked
+(без эмодзи). Cowork ОБЯЗАН прочитать отчёт (git pull + чтение) до принятия задачи — не верить на слово.
+
+## Карта `.claude/`
+- `tasks/SPRINT.md` — активный спринт (исполнитель: первая `[ ]` → `[x]`).
+- `tasks/BACKLOG.md` — бэклог + ВОПРОСЫ/РЕШЕНИЯ (**только Cowork**).
+- `prompts/PROMPT_TEMPLATE.md` — 6-компонентная формула; `PROMPT_NNN_*.md` — готовые промты.
+- `reports/` — отчёты исполнителя. `logs/CHANGELOG.md` — лог. `context/ARCHITECTURE.md` — архитектура.
+- `settings.json` — разрешения (переименован из примера; не коммитить абсолютные пути).
+
+## Автономность при блокерах
+Лимит автономии исполнителя: 2 попытки ИЛИ 30 минут. Дальше — `BLOCKER` в отчёте; Cowork даёт
+2–3 «ladder»-варианта в одном промте; к владельцу — только когда варианты исчерпаны.
+
+---
+
+# ЧАСТЬ II — Мозг проекта (v3)
+
 # Anti-Age Platform — Персональный сайт эксперта по anti-age
 
 ## Описание проекта
@@ -27,14 +105,18 @@
 
 ## Tech Stack
 
+> Версии ниже приведены к факту (из `antiage-platform/package.json`, TASK-040). Часть пунктов
+> раздела — v3-визия (Arcjet, Umami/PostHog, Inngest и т.п.); что реально на проде vs roadmap —
+> см. README.md / PROJECT_STATUS.md. Фактический rate-limiting форм — средствами Nginx, не Arcjet.
+
 ### Основной стек
-- **Next.js 15** (App Router) — RSC, Server Actions, Streaming, ISR
-- **TypeScript** (strict mode)
+- **Next.js 16.2** (App Router) — RSC, Server Actions, Streaming, ISR · **React 19**
+- **TypeScript 5** (strict mode)
 - **Tailwind CSS v4** (CSS-first конфигурация, @theme вместо tailwind.config.js)
 - **shadcn/ui** (CLI v4, New York стиль) — копируемые компоненты
 - **Framer Motion** + **Motion Primitives** (анимации с shadcn-совместимостью)
-- **Prisma ORM** + **PostgreSQL** (Vercel Postgres или Supabase)
-- **Vercel** (деплой, edge functions)
+- **Prisma 7** + **PostgreSQL** (на RU-VPS, локализация ПДн по 152-ФЗ)
+- **Vercel** (фронт) за московским **Nginx** reverse-proxy на RU-VPS (гибрид; см. README/SERVER_SETUP)
 
 ### Email и коммуникации
 - **Resend** (транзакционные email, React Email шаблоны)

@@ -19,6 +19,19 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-040] Синхронизация README/доков с фактом — 2026-06-09
+- Что сделано: README.md переписан под факт — версии из package.json (Next.js 16.2/React 19/
+  TypeScript 5/Tailwind v4/Prisma 7), разделены «Реализовано (на проде)» и «Roadmap v1.1» (AI-чат,
+  PWA, До/После, Telegram-бот, JWT-результаты, email-рассылки без ESP, аналитика), кратко описан
+  гибрид RU-VPS+Vercel со ссылками (PERF_ARCHITECTURE_PLAN/SERVER_SETUP/ARCHITECTURE/PROJECT_STATUS).
+  Уточнено: rate-limit форм — Nginx (не Arcjet); MCP — инструменты разработки. CLAUDE.md Часть II:
+  версии Tech Stack к факту + оговорка (Часть I не трогалась). Только .md, код/конфиги не менялись.
+- Файлы: `README.md`, `CLAUDE.md` (только Часть II — Tech Stack),
+  `.claude/reports/REPORT_TASK-040_2026-06-09.md`, `.claude/tasks/SPRINT.md` (TASK-040 → [x]).
+- Сборка/линт/типы: N/A (только Markdown).
+- Дельта размера: 0.
+- Проблемы: нет.
+
 ## [TASK-041] Гигиена git — игнор ContentFiles/, коммит .claude/ — 2026-06-09
 - Что сделано: в корневой .gitignore добавлено `/ContentFiles/` (только каталог исходников, НЕ
   глобальные *.mp4/*.CR3 — чтобы не задеть public-ассеты). `git rm -r --cached ContentFiles` убрал

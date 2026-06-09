@@ -1,87 +1,105 @@
-# README.md — Anti-Age Platform v3
+# Anti-Age Platform — `gpeters.ru`
 
-## Что изменилось в v3 (после аудита и исследования)
+Персональный сайт эксперта по anti-age (Галина): лиды через квиз и формы, программы,
+блог, привлечение в Telegram. Живой прод: **https://gpeters.ru**.
 
-### Стек обновлён:
-- Next.js 14 → **Next.js 15** (fetch no-store по умолчанию, улучшенные Server Actions)
-- Tailwind config → **Tailwind v4** (CSS-first @theme, 5x быстрее билд)
-- shadcn/ui → **CLI v4** (design system presets, AI agent skills)
-- FID → **INP < 200ms** (метрика обновлена с марта 2024)
+> Этот README отражает **фактическое** состояние. Полная сводка «сделано / открыто / долги» —
+> в [PROJECT_STATUS.md](PROJECT_STATUS.md). «Мозг проекта» (домен, аудитория, дизайн-система) —
+> в [CLAUDE.md](CLAUDE.md) Часть II (там местами описана v3-визия, не всё из неё реализовано —
+> ориентируйтесь на разделы «Реализовано»/«Roadmap» ниже).
 
-### Добавлено:
-- **Полная Prisma-схема**: EmailContact, EmailSequence, AdminUser, BlogCategory, ConsentLog
-- **Алгоритм расчёта биологического возраста** (баллы → delta → bioAge → рекомендации)
-- **Telegram Bot архитектура** (webhook, flow, безопасность)
-- **Email drip-серия** (5 писем через Inngest + Resend)
-- **Безопасность**: Arcjet (bot/rate limit/email validation), CSP, security headers
-- **GDPR consent flow**: ConsentCheckbox + Privacy Policy + ConsentLog
-- **Аналитика**: Umami (privacy-first) + PostHog (heatmaps)
-- **JWT tokens** для безопасного доступа к результатам квиза
-- **Privacy Policy страница** (/privacy)
-- **Before/After галерея** (/gallery — v1.1)
-- **AI-чат + PWA** (Этап 9, v1.1)
+## Технологический стек (фактический, из `antiage-platform/package.json`)
 
-### Конкурентные преимущества:
-| Мы | Конкуренты (Tilda/GetCourse) |
-|---|---|
-| Next.js 15 — скорость, SEO | Tilda — шаблонный, медленный |
-| Квиз-воронка (30-50% конверсия) | Нет квизов |
-| Двойная палитра | Шаблонный дизайн |
-| Arcjet bot-защита | Нет защиты форм |
-| Privacy-first аналитика (без баннера куки) | Google Analytics (баннер пугает аудиторию 40-70) |
-| AI-чат v1.1 (аналог Dr. Hyman) | Нет AI |
-| 62 года = живое доказательство | Менее убедительный trust |
+| Технология | Версия | Примечание |
+|------------|--------|-----------|
+| Next.js | **16.2** (App Router, RSC) | сборка Turbopack |
+| React / React DOM | **19.2** | |
+| TypeScript | **5** (strict) | |
+| Tailwind CSS | **v4** | CSS-first `@theme` в `globals.css` |
+| Prisma ORM + PostgreSQL | **7.5** | driver adapter `@prisma/adapter-pg` (Prisma 7) |
+| shadcn / Base UI | shadcn 4 / `@base-ui/react` 1 | копируемые UI-компоненты |
+| Framer Motion | 12 | анимации, `useReducedMotion` |
+| Zod | 4 | валидация форм/входных данных |
+| Resend / Inngest | 6 / 4 | email/очереди — **заготовлены, не активны** (нужен ESP) |
+| html2canvas | 1.4.1 | «Скачать таблицу приёма» → JPG |
+| Хостинг | Vercel + RU-VPS (Nginx) | см. «Архитектура» |
 
-## Файлы
+## Архитектура (кратко) — гибрид RU-VPS + Vercel
 
-| Файл | Содержание | Версия |
-|------|-----------|--------|
-| CLAUDE.md | Мозг проекта: стек, палитра, шрифты, безопасность, аналитика | v3 |
-| ARCHITECTURE.md | Wireframes, БД (полная), Telegram bot, email drip, SEO | v3 |
-| PLAN.md | 10 этапов с промптами + промпты отладки + чеклист деплоя | v3 |
-| ContentFiles/*.txt | 11 файлов с контентом бренда | v1 |
-
-## Быстрый старт
-
-```bash
-mkdir antiage-platform && cd antiage-platform
-# Скопируйте CLAUDE.md, ARCHITECTURE.md, PLAN.md в корень
-# Скопируйте ANTIAGE_*.txt в папку content/
-code .  # Откройте VS Code
-# Запустите Claude Code → скопируйте промпт Этапа 0 из PLAN.md
+```
+Браузер → gpeters.ru → RU-VPS (Москва, Nginx reverse-proxy, TLS)
+   ├─ /            → проксируется на Vercel (Next.js, глобальный edge)
+   ├─ /api/*       → локальный API на VPS (Node/PM2, 127.0.0.1) → PostgreSQL (РФ)
+   └─ /media/*     → статика с диска VPS (hero-видео)
 ```
 
-## Этапы реализации
+- **ПДн граждан РФ — только в РФ-БД** (152-ФЗ): приём и запись форм идут через локальный API
+  на VPS, не через server actions Vercel.
+- Vercel в РФ заблокирован → весь трафик идёт через московский Nginx (разблокировка + локализация ПДн).
+- Подробнее: [PERF_ARCHITECTURE_PLAN.md](PERF_ARCHITECTURE_PLAN.md), [SERVER_SETUP.md](SERVER_SETUP.md),
+  [ARCHITECTURE.md](ARCHITECTURE.md).
 
-| Этап | Название | Время | Ключевое |
-|------|---------|-------|----------|
-| 0 | Инициализация | 30 мин | Next.js 15, Tailwind v4, Prisma, шрифты |
-| 0.5 | Безопасность + Email | 30 мин | Arcjet, Resend, Inngest, Privacy Policy |
-| 1 | Layout + WaveDivider | 1 час | Header, Footer, 4 варианта волн |
-| 2 | Главная страница | 2 часа | Hero, QuizCTA, ThreePillars, Results |
-| 3 | **Квиз-воронка** | 2 часа | **Ключевой этап**: 7 вопросов, алгоритм, gate, JWT |
-| 4 | Партнёрство | 1.5 часа | Attraction-маркетинг, multi-step форма |
-| 5 | Обо мне | 1 час | Timeline 30 лет, принципы, цитаты |
-| 6 | Программы | 1 час | 3 подстраницы (биохимия/механика/энергетика) |
-| 7 | Блог + Контакты | 1 час | ISR, фильтры, шеринг, CTABanner |
-| 8 | SEO + Полировка | 1.5 часа | JSON-LD, Umami, Sentry, Lighthouse > 90 |
-| 9 | AI-чат + PWA | v1.1 | Vercel AI SDK, Serwist, Before/After |
+## Реализовано (на проде)
 
-**Общее время v1: ~11-13 часов**
+**Инфраструктура / безопасность**
+- RU-VPS защищён (SSH-ключи, ufw, fail2ban); PostgreSQL 16 (localhost-only) + миграции Prisma.
+- API приёма форм (quiz / contact / partner) на VPS под PM2; Nginx + TLS (Let's Encrypt) на `gpeters.ru`.
+- Rate-limiting форм `/api/*` — **средствами Nginx** (`limit_req`), без Arcjet.
+- Nginx: HTTP/2, gzip, `proxy_cache` для статики Vercel (`/api`, `/media` не кэшируются).
 
-## MCP-серверы (12 штук)
+**Право / согласия (152-ФЗ / ФЗ-38)**
+- Раздельные согласия (ПДн / рассылка) + фиксация в `ConsentLog`; медицинский и БАД-дисклеймеры.
 
-| # | Сервер | Назначение |
-|---|--------|-----------|
-| 1 | Context7 | Актуальные доки библиотек |
-| 2 | Playwright | Браузерная автоматизация и тестирование |
-| 3 | A11y | WCAG-аудит доступности |
-| 4 | Lighthouse | Performance, SEO, Core Web Vitals |
-| 5 | Icons8 | Поиск иконок |
-| 6 | Pickapicon | Иконки по описанию |
-| 7 | Resend | Email API |
-| 8 | Cloudinary | Оптимизация изображений |
-| 9 | Sentry | Мониторинг ошибок |
-| 10 | Figma-dev | Дизайн-файлы |
-| 11 | Magic (21st.dev) | AI-генерация компонентов |
-| 12 | PubMed | Медицинские исследования для блога |
+**Контент**
+- Квиз «биологический возраст» (алгоритм bioAge, gate с обязательным согласием).
+- 9 программ поддержки организма (каталог + подстраницы, кнопки заказа → реф-ссылка agenyz).
+- Блог с обложками + статьи в `sitemap`; реальные фото Галины (hero, программы, аватар в шапке).
+- Реальные соцсети/Telegram; «Скачать таблицу приёма» → JPG (html2canvas).
+
+**Производительность видео/страниц**
+- Постер-LCP + ленивое hero-видео (постер на мобайл/медленных/`saveData`).
+- Выбор источника видео: РФ/СНГ-таймзоны → Москва сразу; зарубеж → Vercel-edge с фолбэком на Москву.
+
+## Планы / Roadmap (v1.1) — НЕ реализовано
+
+- **Email-рассылки**: транзакционные письма (результаты квиза) и drip-серия через Resend + Inngest —
+  **ждут выбора российского ESP** (без него письма не отправляются).
+- **Telegram-бот** (webhook, выдача результатов квиза) — продуктовое решение не принято.
+- **JWT-доступ к результатам квиза** по токену — не реализован (сейчас результаты считаются на клиенте).
+- **Аналитика**: helper `trackEvent` есть; подключение Umami / PostHog / Sentry — по мере настройки.
+- **AI-чат** (Vercel AI SDK + RAG), **PWA** (Serwist, offline-квиз, push), **галерея До/После** (`/gallery`).
+- Видео на внешнем CDN / HLS — **парковано** (для декоративного фона не оправдано; см. PROJECT_STATUS §5).
+
+## Ждёт решения/данных владельца
+
+- Российский **ESP** (для писем) · реквизиты ИП/ООО (оферта) · решение по Telegram-боту/JWT.
+- Юр-гейт перед платным продвижением: регистрация ИП, уведомление РКН, финальное юр-ревью текстов
+  (см. [LEGAL_RISKS.md](LEGAL_RISKS.md), PROJECT_STATUS §4).
+
+## Документы
+
+| Файл | Содержание |
+|------|-----------|
+| [PROJECT_STATUS.md](PROJECT_STATUS.md) | Актуальная сводка: сделано / открыто / долги |
+| [CLAUDE.md](CLAUDE.md) | Координация (Часть I) + «мозг проекта» v3 (Часть II) |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | Вайрфреймы, схема БД, SEO, email-/Telegram-архитектура (v3-визия) |
+| [PLAN.md](PLAN.md) | Пошаговый план реализации (v3) |
+| [PERF_ARCHITECTURE_PLAN.md](PERF_ARCHITECTURE_PLAN.md) | Производительность для зарубежной аудитории |
+| [SERVER_SETUP.md](SERVER_SETUP.md) · [LEGAL_RISKS.md](LEGAL_RISKS.md) | Сервер · юридические риски |
+
+## Локальная разработка
+
+```bash
+cd antiage-platform
+npm install
+npm run dev        # http://localhost:3000
+npm run build      # prisma generate + next build
+npm run lint       # eslint
+npx tsc --noEmit   # проверка типов
+```
+
+`.env` — по образцу `.env.example` (DATABASE_URL и ключи; секреты в git не коммитятся).
+Тяжёлые исходники контента лежат в `ContentFiles/` (вне git, см. `.gitignore`).
+
+> MCP-серверы (Context7, Playwright, A11y, Lighthouse, Resend, Cloudinary, Sentry, PubMed и др.) —
+> это инструменты разработки/ассистента, а не части продукта.
