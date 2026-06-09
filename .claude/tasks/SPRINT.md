@@ -11,13 +11,14 @@
 - [x] TASK-071: Nginx кэш + сжатие + HTTP/2 (НЕ кэшировать /api и /media). Промт: `.claude/prompts/PROMPT_071_nginx_cache.md`. Отчёт: `.claude/reports/REPORT_TASK-071_2026-06-09.md`.
 - [x] TASK-073: Ленивое hero-видео (постер на мобайл/медленных, не блокирует LCP). Промт: `.claude/prompts/PROMPT_073_lazy_video.md`. Отчёт: `.claude/reports/REPORT_TASK-073_2026-06-09.md`.
 - [x] TASK-074: Диагностика 504 Gcore→origin по логам Nginx (только чтение). Вывод: причина на стороне Gcore (edge обрывает pull ~250КБ/9.5МБ; origin здоров). Промт: `.claude/prompts/PROMPT_074_cdn_origin_diag.md`. Отчёт: `.claude/reports/REPORT_TASK-074_2026-06-09.md`.
-- [ ] TASK-072: Видео на Gcore CDN (CNAME, /media — резерв). ПРЕДУСЛОВИЕ: аккаунт Gcore от владельца. Промт: `.claude/prompts/PROMPT_072_video_cdn.md`.
+- [~] TASK-072 (ПАРКОВАНА, реш. 09.06): видео на CDN — НЕ делаем. Gcore Object Storage платный (PAYG), ради декоративного фона не оправдан (см. VIDEO_SEGMENTATION_RESEARCH.md). Видео остаётся на /media (origin), ускорение даёт HTTP/2+кэш+lazy. Промт- Видео на Gcore CDN (CNAME, /media — резерв). ПРЕДУСЛОВИЕ: аккаунт Gcore от владельца. Промт: `.claude/prompts/PROMPT_072_video_cdn.md`.
 
 ### Предусловия от владельца
 - [ВОПРОС] Решение по варианту (A рекомендован) + доля зарубежной аудитории + бюджет CDN.
 - [ВОПРОС] Аккаунт Gcore + CDN-ресурс (origin gpeters.ru/media) + поддомен cdn.gpeters.ru (CNAME) — для TASK-072.
 
 ### Отложено (по решению)
+- [РЕШЕНО 09.06] Производительность видео: Вариант A реализован (070 baseline, 071 nginx-кэш/HTTP2/gzip, 073 lazy-video — на проде). CDN-видео ПАРКОВАНО: Gcore free обрывал pull большого файла (504, диагностика TASK-074 — причина на стороне Gcore), Object Storage платный — для декоративного фона не оправдан. Видео отдаётся с /media. Возврат к CDN/HLS — при росте зарубежной аудитории (см. VIDEO_SEGMENTATION_RESEARCH.md, PERF_ARCHITECTURE_PLAN.md).
 - Вариант B (CDN перед всем сайтом), Вариант C (гео-split) — после оценки эффекта A.
 - TASK-062: канонический редирект vercel.app → gpeters.ru (Next 16 → `proxy.ts`) — закрыть «дверь» foreign-origin; не обязателен для A, но желателен.
 
@@ -35,7 +36,7 @@
 - [x] TASK-056: Круглые фото Галины на программах (hero + цитата). Промт: `.claude/prompts/PROMPT_056_program_circles.md`. Отчёт: `.claude/reports/REPORT_TASK-056_2026-06-08.md`.
 - [x] TASK-056b: Фикс кружков (квадратные фото, без обрезки лица, крупнее, безусловный рендер). Промт: `.claude/prompts/PROMPT_056b_fix_circles.md`. Отчёт: `.claude/reports/REPORT_TASK-056b_2026-06-08.md`.
 - [x] TASK-057: Кнопка «Скачать таблицу приёма» → JPG расписания (html2canvas). Промт: `.claude/prompts/PROMPT_057_download_table.md`. Отчёт: `.claude/reports/REPORT_TASK-057_2026-06-08.md`.
-- [ ] TASK-061: Реф-ссылка agenyz Галины в ORDER_URL (bonus=001-078135). Промт: `.claude/prompts/PROMPT_061_order_url.md`.
+- [x] TASK-061: Реф-ссылка agenyz Галины в ORDER_URL (bonus=001-078135). Промт: `.claude/prompts/PROMPT_061_order_url.md`. Отчёт: `.claude/reports/REPORT_TASK-061_2026-06-09.md`.
 - [x] TASK-058: AI-обложки статей блога (6 шт. готовы в public/images/blog/, оптимизированы Cowork). Промт: `.claude/prompts/PROMPT_058_blog_covers.md`. Отчёт: `.claude/reports/REPORT_TASK-058_2026-06-08.md`.
 
 - [x] TASK-022: Rate limiting /api/* в nginx (H1; решение PM — без Arcjet). Промт: `.claude/prompts/PROMPT_022_rate_limit.md`. Отчёт: `.claude/reports/REPORT_TASK-022_2026-06-06.md`.

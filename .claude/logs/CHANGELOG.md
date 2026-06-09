@@ -19,6 +19,19 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-061] Реф-ссылка agenyz в ORDER_URL — 2026-06-09
+- Что сделано: ORDER_URL в constants.ts заменён с временного TG-канала на реф-ссылку Галины
+  https://agenyz.ru/registration?bonus=001-078135&language=ru (TODO удалён). Кнопки «Заказать
+  комплексы» (HealthProgramPage, hero + нижний CTA) уже на href={ORDER_URL} target=_blank — код не
+  менялся. Telegram-кнопка не тронута. Прод: href ведёт на agenyz с bonus=001-078135 (2× на странице).
+- Файлы: `src/lib/constants.ts`, `.claude/reports/REPORT_TASK-061_2026-06-09.md`,
+  `.claude/tasks/SPRINT.md` (TASK-061 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: 0
+- Проблемы: нет.
+
 ## [TASK-074] Диагностика 504 Gcore→origin (read-only) — 2026-06-09
 - Что сделано: по логам Nginx и loopback-проверкам установлено — запросы Gcore edge (92.223.76.20,
   диапазон Gcore) ДОХОДЯТ до origin и получают 200, но edge ОБРЫВАЕТ pull на ~200–300 КБ из 9.51 МБ
