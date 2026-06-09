@@ -18,6 +18,7 @@
 - [ВОПРОС] Аккаунт Gcore + CDN-ресурс (origin gpeters.ru/media) + поддомен cdn.gpeters.ru (CNAME) — для TASK-072.
 
 - [x] TASK-075: Видео-источник Vercel + «Vercel-first, фолбэк на Москву» в Hero (ускорение заграницы). Промт: `.claude/prompts/PROMPT_075_video_source_race.md`. Отчёт: `.claude/reports/REPORT_TASK-075_2026-06-09.md`.
+- [x] TASK-076: ФИКС — видео не монтируется на «3g»/VPN (убрать 3g из slowNet); корень «видео не грузится за рубежом». Промт: `.claude/prompts/PROMPT_076_relax_net_gate.md`. Отчёт: `.claude/reports/REPORT_TASK-076_2026-06-09.md`.
 
 ### Отложено (по решению)
 - [РЕШЕНО 09.06] Производительность видео: Вариант A реализован (070 baseline, 071 nginx-кэш/HTTP2/gzip, 073 lazy-video — на проде). CDN-видео ПАРКОВАНО: Gcore free обрывал pull большого файла (504, диагностика TASK-074 — причина на стороне Gcore), Object Storage платный — для декоративного фона не оправдан. Видео отдаётся с /media. Возврат к CDN/HLS — при росте зарубежной аудитории (см. VIDEO_SEGMENTATION_RESEARCH.md, PERF_ARCHITECTURE_PLAN.md).

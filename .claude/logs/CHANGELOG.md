@@ -19,6 +19,21 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-076] Видео не блокируется на «3g»/VPN — 2026-06-09
+- Что сделано: в Hero.tsx убран "3g" из slowNet (`["slow-2g","2g","3g"]` → `["slow-2g","2g"]`).
+  Chrome/VPN часто рапортует effectiveType="3g" на нормальных каналах → раньше showVideo=false и
+  <video> не монтировался (постер-only за рубежом), выбор источника TASK-075 не стартовал. Теперь
+  постер-only только при saveData или slow-2g/2g; 3g и выше показывают видео. Прочая логика (постер,
+  мобайл, reduced-motion, таймаут-фолбэк, выбор источника) не тронута. Прод (Playwright): на 3g
+  видео монтируется, currentSrc выставлен (readyState=4); на 2g/saveData — постер; на 4g — видео.
+- Файлы: `src/components/sections/Hero.tsx`, `.claude/reports/REPORT_TASK-076_2026-06-09.md`,
+  `.claude/tasks/SPRINT.md` (TASK-076 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: 0
+- Проблемы: нет.
+
 ## [TASK-075] Hero-видео Vercel-first + фолбэк на Москву — 2026-06-09
 - Что сделано: hero-bg.mp4 добавлен в public/media (раздаёт Vercel edge). Hero пробует
   VIDEO_CDN_URL (gala-antiage.vercel.app/media/...) первым; если за 2.5с нет canplay (readyState<3)
