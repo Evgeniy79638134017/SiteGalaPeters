@@ -19,6 +19,22 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-071] Nginx кэш + сжатие + HTTP/2 — 2026-06-09
+- Что сделано: на московском Nginx включены HTTP/2 (listen ... http2; ALPN h2 подтверждён),
+  расширенный gzip (css/js/json/svg; brotli недоступен в стоковом nginx — обосновано),
+  proxy_cache зоны vercel_static для /_next/static (immutable, 30d) и /_next/image (1ч, поверх
+  max-age=0 Vercel). /api/ и /media/ НЕ кэшируются (ПДн/динамика; /api с rate-limit TASK-022).
+  Проверено: статика MISS→HIT, /api не кэшируется (2 POST → 2 записи в БД → удалены), сайт/healthz
+  200, метрики страниц = паритет с baseline (без регресса РФ). Бэкап + автооткат при nginx -t.
+  Конфиги в репо не хранятся — фрагменты в отчёте (как TASK-015/022).
+- Файлы (на сервере): `/etc/nginx/conf.d/perf-cache.conf` (новый),
+  `/etc/nginx/sites-available/gpeters.ru` (http2 + 2 cache-локации); бэкап
+  `/root/nginx-backup-2026-06-09/`. В репо: `.claude/reports/REPORT_TASK-071_2026-06-09.md`,
+  `.claude/tasks/SPRINT.md` (TASK-071 → [x]).
+- Сборка/линт/типы: N/A (только Nginx, код не трогали).
+- Дельта размера (бандл): 0.
+- Проблемы: brotli не включён (модуля нет в стоковом nginx) — отдельная мини-задача при необходимости.
+
 ## [TASK-070] Perf baseline «до» (SPRINT-4, Вариант A) — 2026-06-09
 - Что сделано: зафиксированы CLI-метрики «до» оптимизаций в `.claude/reports/PERF_BASELINE_2026-06-09.md`
   (curl, с локальной РФ-машины, без изменений сервера/кода). Главное: страницы HTTP/1.1, gzip есть
