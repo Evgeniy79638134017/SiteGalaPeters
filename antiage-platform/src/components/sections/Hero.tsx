@@ -3,9 +3,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useReducedMotion } from "framer-motion";
-import { useEffect, useState } from "react";
-import { TELEGRAM_CHANNEL_URL } from "@/lib/constants";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { TELEGRAM_CHANNEL_URL, VIDEO_CDN_URL, VIDEO_ORIGIN_URL } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
+
+// Сколько ждём готовности видео с Vercel, прежде чем фолбэкнуть на Москву (TASK-075).
+const VERCEL_TIMEOUT_MS = 2500;
 
 // Минимальный тип Network Information API (нет в стандартных lib.dom типах).
 interface NetworkInformationLite {
@@ -22,12 +25,35 @@ export function Hero() {
   const shouldReduceMotion = useReducedMotion();
   // Видео монтируется ТОЛЬКО на клиенте после первого рендера → не блокирует LCP.
   const [showVideo, setShowVideo] = useState(false);
+  // Источник видео: начинаем с Vercel (CDN), при ошибке/таймауте → Москва (origin).
+  const [videoSrc, setVideoSrc] = useState<string | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const switchedRef = useRef(false); // гард от повторного переключения
+
+  const fallbackToMoscow = useCallback(() => {
+    if (switchedRef.current) return; // уже на Москве или уже переключились
+    switchedRef.current = true;
+    setVideoSrc(VIDEO_ORIGIN_URL);
+  }, []);
+
+  // Таймаут: если Vercel-видео не готово за VERCEL_TIMEOUT_MS — фолбэк на Москву.
+  useEffect(() => {
+    if (videoSrc !== VIDEO_CDN_URL) return;
+    const t = setTimeout(() => {
+      const v = videoRef.current;
+      // readyState < HAVE_FUTURE_DATA(3) → ещё не заиграло → берём Москву.
+      if (!v || v.readyState < 3) fallbackToMoscow();
+    }, VERCEL_TIMEOUT_MS);
+    return () => clearTimeout(t);
+  }, [videoSrc, fallbackToMoscow]);
 
   useEffect(() => {
     const mql = window.matchMedia("(min-width: 768px)");
     const evaluate = () => {
       if (shouldReduceMotion) {
         setShowVideo(false);
+        setVideoSrc(null);
+        switchedRef.current = false;
         return;
       }
       const conn = getConnection();
@@ -36,7 +62,15 @@ export function Hero() {
         !!conn &&
         (conn.saveData === true ||
           ["slow-2g", "2g", "3g"].includes(conn.effectiveType ?? ""));
-      setShowVideo(mql.matches && !slowNet);
+      const show = mql.matches && !slowNet;
+      setShowVideo(show);
+      if (show) {
+        // Стартуем с Vercel; если уже фолбэкнули на Москву — источник не сбрасываем.
+        if (!switchedRef.current) setVideoSrc(VIDEO_CDN_URL);
+      } else {
+        setVideoSrc(null);
+        switchedRef.current = false;
+      }
     };
 
     // Первая оценка — после первого кадра (rAF), а не синхронно в эффекте: видео не блокирует LCP.
@@ -65,11 +99,16 @@ export function Hero() {
       />
 
       {/* Видео поверх постера — только десктоп + нормальная сеть, монтируется после первого
-          рендера (не грузится зря на мобильных/медленных). Кадр совпадает с постером → без «прыжка». */}
-      {showVideo && (
+          рендера (не грузится зря на мобильных/медленных). Кадр совпадает с постером → без «прыжка».
+          Источник: Vercel (быстро за рубежом) → при ошибке/таймауте Москва (TASK-075).
+          key={videoSrc} перемонтирует <video> при смене источника (чистый load+autoplay).
+          Без crossOrigin: cross-origin воспроизведение CORS не требует, пиксели не читаем. */}
+      {showVideo && videoSrc && (
         <video
+          key={videoSrc}
+          ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover object-center"
-          src="/media/hero-bg.mp4"
+          src={videoSrc}
           poster="/images/hero-poster.jpg"
           autoPlay
           muted
@@ -77,6 +116,7 @@ export function Hero() {
           playsInline
           preload="metadata"
           aria-hidden="true"
+          onError={fallbackToMoscow}
         />
       )}
 

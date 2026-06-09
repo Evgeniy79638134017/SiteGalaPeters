@@ -12,6 +12,11 @@ export const TIKTOK_URL = "https://www.tiktok.com/@gala_lucky";
 export const ORDER_URL = "https://agenyz.ru/registration?bonus=001-078135&language=ru";
 export const EMAIL_CONTACT = "gpeters@mail.ru";
 
+// Hero-видео (TASK-075): сначала пробуем глобальный edge Vercel (быстро за рубежом),
+// при неудаче/таймауте — московский /media (same-origin, гарантированный фолбэк для РФ).
+export const VIDEO_CDN_URL = "https://gala-antiage.vercel.app/media/hero-bg.mp4";
+export const VIDEO_ORIGIN_URL = "/media/hero-bg.mp4";
+
 export const NAV_LINKS = [
   { href: "/programs", label: "Программы" },
   { href: "/partnership", label: "Партнёрство" },
