@@ -57,11 +57,13 @@ export function Hero() {
         return;
       }
       const conn = getConnection();
-      // Узкий экран (мобайл), экономия трафика или медленная сеть → только постер, без <video>.
+      // Узкий экран (мобайл), экономия трафика или реально медленная сеть → только постер.
+      // 3g НЕ блокируем: Chrome/VPN часто пессимистично рапортует "3g" на нормальных каналах
+      // (TASK-076). Постер-only — только saveData или slow-2g/2g.
       const slowNet =
         !!conn &&
         (conn.saveData === true ||
-          ["slow-2g", "2g", "3g"].includes(conn.effectiveType ?? ""));
+          ["slow-2g", "2g"].includes(conn.effectiveType ?? ""));
       const show = mql.matches && !slowNet;
       setShowVideo(show);
       if (show) {
