@@ -29,3 +29,8 @@ next-env.d.ts
 
 # prisma generated
 **/src/generated/prisma
+
+# рабочие исходники контента (тяжёлые/чувствительные: видео, .CR3, фото, транскрипты) —
+# НЕ в git. Каталог именно ContentFiles/; НЕ глобальные *.mp4/*.CR3, чтобы не задеть
+# ассеты сайта в antiage-platform/public/ (TASK-041).
+/ContentFiles/

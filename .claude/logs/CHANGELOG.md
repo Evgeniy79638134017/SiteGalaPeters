@@ -19,6 +19,21 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-041] Гигиена git — игнор ContentFiles/, коммит .claude/ — 2026-06-09
+- Что сделано: в корневой .gitignore добавлено `/ContentFiles/` (только каталог исходников, НЕ
+  глобальные *.mp4/*.CR3 — чтобы не задеть public-ассеты). `git rm -r --cached ContentFiles` убрал
+  из индекса 13 отслеживаемых файлов (11 транскриптов + 2 фото), файлы остались на диске; тяжёлые
+  (mp4 85МБ/.CR3 23МБ) в git и не были. Закоммичен .claude/ (41 файл: prompts/, BACKLOG, context/
+  ARCHITECTURE, README, _TEMPLATE, settings.json — без секретов/абс.путей). Код из ContentFiles не
+  импортирует (grep пуст). Проверено: ls-files без ContentFiles; .claude в ls-files; public НЕ
+  затронут (20 файлов, включая media/hero-bg.mp4). Историю не переписывал, файлы с диска не удалял.
+- Файлы: `.gitignore`, `.claude/` (prompts/BACKLOG/context/README/_TEMPLATE/settings.json),
+  `.claude/reports/REPORT_TASK-041_2026-06-09.md`, `.claude/tasks/SPRINT.md` (TASK-041 → [x]);
+  из индекса удалены `ContentFiles/*` (13).
+- Сборка/линт/типы: N/A (git-индекс/.gitignore/.claude, код не трогался).
+- Дельта размера: 0 (бандл); из git убраны 13 исходников.
+- Проблемы: нет.
+
 ## [TASK-077] Москва по умолчанию, Vercel — только зарубежным (по таймзоне) — 2026-06-09
 - Что сделано: фикс регрессии TASK-075 (Vercel в РФ заблокирован, а старт был с Vercel → РФ-юзеры
   ждали 2.5с/висли). Начальный источник теперь по `Intl...timeZone`: РФ/СНГ таймзоны (Set:
