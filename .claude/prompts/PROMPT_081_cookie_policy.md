@@ -51,3 +51,17 @@ TASK-081. Под требование РФ об ИНФОРМИРОВАНИИ (15
   CHANGELOG, SPRINT → [x], коммит/пуш.
 - DON'T: не описывать Метрику/GA как уже работающие; не ставить noindex; не дублировать
   Политику конфиденциальности — ссылаться на неё.
+
+## Риски внедрения (учесть — ревью кода 11.06.2026)
+- **Образец вёрстки уже есть.** `src/app/privacy/page.tsx` — серверная страница с
+  `export const metadata` и разметкой `<main className="min-h-screen bg-warm-bg py-16 px-6">
+  <article className="max-w-3xl mx-auto space-y-8">` + `<h1 className="text-teal">` /
+  `<h2 className="text-2xl text-teal">` / `<p className="text-text-muted">`. Сделать
+  `/cookie-policy` ТОЧНО по этому шаблону (тот же контейнер/классы), чтобы стиль совпал.
+- **Sitemap.** `src/app/sitemap.ts` — добавить `/cookie-policy` в массив staticPages
+  (по аналогии с `/privacy`, priority ~0.3, changeFrequency "yearly").
+- **Кросс-ссылка.** В `/privacy` упоминается сбор данных, но нет блока про cookie — добавить в
+  privacy короткую ссылку на `/cookie-policy` (и наоборот), чтобы документы не противоречили.
+- **Кнопка «Настройки cookie» на странице** = тот же клиентский `CookieSettingsButton` из
+  TASK-080 (не дублировать логику).
+- DON'T: не делать всю страницу клиентской ради одной кнопки — кнопка отдельным островом.
