@@ -19,6 +19,21 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-016] Бэкапы PostgreSQL на RU-VPS — 2026-06-11
+- Что сделано: бэкапов не было — настроен ежедневный pg_dump|gzip БД antiage. Скрипт
+  /usr/local/bin/pg-backup.sh (берёт DATABASE_URL из /home/deploy/.antiage_db_env, отрезает
+  ?schema, pg_dump --no-owner --no-privileges|gzip → /var/backups/postgres/antiage-<date>.sql.gz,
+  chmod 600, ротация 14 дней). systemd pg-backup.timer (03:30 MSK, Persistent) + service (User=deploy),
+  enabled. Каталог 700 deploy:deploy. Тест: прогон создал ненулевой дамп; восстановление во временную
+  antiage_restore_test → \dt 10 таблиц → дроп. Пароли не светились; ufw/sshd/PM2/nginx/боевую БД не
+  трогали. Конфиги сервера в репо не хранятся (фрагменты в отчёте).
+- Файлы (сервер): `/usr/local/bin/pg-backup.sh`, `/etc/systemd/system/pg-backup.{service,timer}`,
+  `/var/backups/postgres/`. В репо: `.claude/reports/REPORT_TASK-016_2026-06-11.md`,
+  `.claude/tasks/SPRINT.md` (TASK-016 → [x]).
+- Сборка/линт/типы: N/A (серверная настройка).
+- Дельта размера: 0.
+- Проблемы: бэкап на том же хосте — на будущее off-host копия в РФ (не обязательно сейчас).
+
 ## [TASK-040] Синхронизация README/доков с фактом — 2026-06-09
 - Что сделано: README.md переписан под факт — версии из package.json (Next.js 16.2/React 19/
   TypeScript 5/Tailwind v4/Prisma 7), разделены «Реализовано (на проде)» и «Roadmap v1.1» (AI-чат,
