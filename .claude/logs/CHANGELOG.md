@@ -19,6 +19,24 @@
 
 <!-- Новые записи добавляются сверху. -->
 
+## [TASK-081] Страница /cookie-policy (информирование 152-ФЗ) — 2026-06-11
+- Что сделано: добавлена статическая серверная страница /cookie-policy по шаблону /privacy
+  (тот же контейнер/классы, metadata, индексируется). Текст по факту: только необходимые cookie;
+  Umami cookieless без идентификации; Метрика/GA НЕ активны, в будущем только с согласия; управление
+  через браузер; отзыв согласия; контакты оператора (EMAIL_CONTACT) + ссылка на /privacy. Ссылка
+  «Политика cookie» в Footer рядом с «Политикой конфиденциальности»; в /privacy встречная ссылка;
+  /cookie-policy в sitemap (0.3, yearly). Без кнопки «Настройки cookie»/баннера (TASK-080 позже),
+  не клиентская, без noindex. Прод проверен: 200, noindex=0, Umami/«не активны»/email/ссылки/footer/
+  sitemap присутствуют.
+- Файлы: `src/app/cookie-policy/page.tsx` (новый), `src/components/layout/Footer.tsx`,
+  `src/app/privacy/page.tsx`, `src/app/sitemap.ts`, `.claude/reports/REPORT_TASK-081_2026-06-11.md`,
+  `.claude/tasks/SPRINT.md` (TASK-081 → [x]).
+- Сборка (antiage-platform): PASS
+- Линт: PASS
+- Проверка типов (tsc): PASS
+- Дельта размера: 0
+- Проблемы: финальная юр-проверка текста — гейт −1.4; кнопка «Настройки cookie» — в TASK-080.
+
 ## [TASK-016] Бэкапы PostgreSQL на RU-VPS — 2026-06-11
 - Что сделано: бэкапов не было — настроен ежедневный pg_dump|gzip БД antiage. Скрипт
   /usr/local/bin/pg-backup.sh (берёт DATABASE_URL из /home/deploy/.antiage_db_env, отрезает
