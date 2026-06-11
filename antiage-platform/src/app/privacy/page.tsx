@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Политика конфиденциальности",
@@ -61,7 +62,18 @@ export default function PrivacyPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl text-teal">6. Контакты</h2>
+          <h2 className="text-2xl text-teal">6. Файлы cookie</h2>
+          <p className="text-text-muted">
+            Какие файлы cookie использует сайт и как ими управлять — описано в{" "}
+            <Link href="/cookie-policy" className="text-teal-mid underline hover:text-teal transition-colors">
+              Политике в отношении файлов cookie
+            </Link>
+            .
+          </p>
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-2xl text-teal">7. Контакты</h2>
           <p className="text-text-muted">
             По вопросам обработки персональных данных свяжитесь с нами через
             раздел «Контакты» на сайте.

@@ -156,12 +156,20 @@ export function Footer() {
               <p className="text-sm text-brand-soft/50">
                 &copy; {year} {SITE_NAME}. Все права защищены.
               </p>
-              <Link
-                href="/privacy"
-                className="text-sm text-brand-soft/50 hover:text-brand-soft/80 transition-colors"
-              >
-                Политика конфиденциальности
-              </Link>
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+                <Link
+                  href="/privacy"
+                  className="text-sm text-brand-soft/50 hover:text-brand-soft/80 transition-colors"
+                >
+                  Политика конфиденциальности
+                </Link>
+                <Link
+                  href="/cookie-policy"
+                  className="text-sm text-brand-soft/50 hover:text-brand-soft/80 transition-colors"
+                >
+                  Политика cookie
+                </Link>
+              </div>
             </div>
             {/* Юридическая сноска по Instagram/Meta */}
             <p className="text-xs text-brand-soft/40 leading-relaxed">
